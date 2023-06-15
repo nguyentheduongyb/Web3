@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/BroFlix/static/css/main.f78c708b.css",
+    "main.js": "/BroFlix/static/js/main.4d290e00.js",
+    "static/js/787.fe00223f.chunk.js": "/BroFlix/static/js/787.fe00223f.chunk.js",
+    "static/media/minionstupid.jpg": "/BroFlix/static/media/minionstupid.961131b4dad57e018652.jpg",
+    "static/media/quangdong.jpg": "/BroFlix/static/media/quangdong.946f9e9cc279ec5b8800.jpg",
+    "static/media/thor-banner.webp": "/BroFlix/static/media/thor-banner.450fb023ad4c37cf0d66.webp",
+    "static/media/entidy.jpg": "/BroFlix/static/media/entidy.e551e2c44a21651eb977.jpg",
+    "static/media/bg.svg": "/BroFlix/static/media/bg.c5b8afb48b289b6523dd0ae52f0b7880.svg",
+    "static/media/logo.svg": "/BroFlix/static/media/logo.7e7baf1b86f1630a135ed091be790f1d.svg",
+    "static/media/broflix.svg": "/BroFlix/static/media/broflix.b7e6af7a4dfa5323f43d1fb9743301fc.svg",
+    "index.html": "/BroFlix/index.html",
+    "main.f78c708b.css.map": "/BroFlix/static/css/main.f78c708b.css.map",
+    "main.4d290e00.js.map": "/BroFlix/static/js/main.4d290e00.js.map",
+    "787.fe00223f.chunk.js.map": "/BroFlix/static/js/787.fe00223f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f78c708b.css",
+    "static/js/main.4d290e00.js"
+  ]
+}
