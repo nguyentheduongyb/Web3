@@ -56,5 +56,141 @@ export const array = [
                         }
                 ],
                 selled: '5k3'
+        },
+        {
+                id: 3,
+                name: 'Nước hoa Madame Dang EDP 12ml',
+                image: 'https://noison.vn/wp-content/uploads/2022/05/madame-dang-shadow-2048x2048-1.png',
+                description: 'Nước hoa nữ cao cấp Elyza - Hương Thị được chiết xuất từ các nguyên liệu ngoại nhập từ Châu Âu hướng đến những cô gái yêu thích sự tự do, phóng khoáng và yêu thích sự phiêu lưu cùng những nốt hương của hoa cỏ và trái cây tạo cảm giác người phụ nữ mềm mại, quyến rũ và đầy bí ẩn.',
+                prices: [
+                        {
+                                currency: 'VNĐ',
+                                price: '200000'
+                        },
+                        {
+                                currency: 'BTC',
+                                price: '0,0000005'
+                        }
+                ],
+                selled: '5k3'
+        },
+        {
+                id: 3,
+                name: 'Nước hoa Madame Dang EDP 12ml',
+                image: 'https://noison.vn/wp-content/uploads/2022/05/madame-dang-shadow-2048x2048-1.png',
+                description: 'Nước hoa nữ cao cấp Elyza - Hương Thị được chiết xuất từ các nguyên liệu ngoại nhập từ Châu Âu hướng đến những cô gái yêu thích sự tự do, phóng khoáng và yêu thích sự phiêu lưu cùng những nốt hương của hoa cỏ và trái cây tạo cảm giác người phụ nữ mềm mại, quyến rũ và đầy bí ẩn.',
+                prices: [
+                        {
+                                currency: 'VNĐ',
+                                price: '200000'
+                        },
+                        {
+                                currency: 'BTC',
+                                price: '0,0000005'
+                        }
+                ],
+                selled: '5k3'
+        },
+        {
+                id: 3,
+                name: 'Nước hoa Madame Dang EDP 12ml',
+                image: 'https://noison.vn/wp-content/uploads/2022/05/madame-dang-shadow-2048x2048-1.png',
+                description: 'Nước hoa nữ cao cấp Elyza - Hương Thị được chiết xuất từ các nguyên liệu ngoại nhập từ Châu Âu hướng đến những cô gái yêu thích sự tự do, phóng khoáng và yêu thích sự phiêu lưu cùng những nốt hương của hoa cỏ và trái cây tạo cảm giác người phụ nữ mềm mại, quyến rũ và đầy bí ẩn.',
+                prices: [
+                        {
+                                currency: 'VNĐ',
+                                price: '200000'
+                        },
+                        {
+                                currency: 'BTC',
+                                price: '0,0000005'
+                        }
+                ],
+                selled: '5k3'
+        },
+        {
+                id: 3,
+                name: 'Nước hoa Madame Dang EDP 12ml',
+                image: 'https://noison.vn/wp-content/uploads/2022/05/madame-dang-shadow-2048x2048-1.png',
+                description: 'Nước hoa nữ cao cấp Elyza - Hương Thị được chiết xuất từ các nguyên liệu ngoại nhập từ Châu Âu hướng đến những cô gái yêu thích sự tự do, phóng khoáng và yêu thích sự phiêu lưu cùng những nốt hương của hoa cỏ và trái cây tạo cảm giác người phụ nữ mềm mại, quyến rũ và đầy bí ẩn.',
+                prices: [
+                        {
+                                currency: 'VNĐ',
+                                price: '200000'
+                        },
+                        {
+                                currency: 'BTC',
+                                price: '0,0000005'
+                        }
+                ],
+                selled: '5k3'
+        },
+        {
+                id: 3,
+                name: 'Nước hoa Madame Dang EDP 12ml',
+                image: 'https://noison.vn/wp-content/uploads/2022/05/madame-dang-shadow-2048x2048-1.png',
+                description: 'Nước hoa nữ cao cấp Elyza - Hương Thị được chiết xuất từ các nguyên liệu ngoại nhập từ Châu Âu hướng đến những cô gái yêu thích sự tự do, phóng khoáng và yêu thích sự phiêu lưu cùng những nốt hương của hoa cỏ và trái cây tạo cảm giác người phụ nữ mềm mại, quyến rũ và đầy bí ẩn.',
+                prices: [
+                        {
+                                currency: 'VNĐ',
+                                price: '200000'
+                        },
+                        {
+                                currency: 'BTC',
+                                price: '0,0000005'
+                        }
+                ],
+                selled: '5k3'
+        },
+        {
+                id: 3,
+                name: 'Nước hoa Madame Dang EDP 12ml',
+                image: 'https://noison.vn/wp-content/uploads/2022/05/madame-dang-shadow-2048x2048-1.png',
+                description: 'Nước hoa nữ cao cấp Elyza - Hương Thị được chiết xuất từ các nguyên liệu ngoại nhập từ Châu Âu hướng đến những cô gái yêu thích sự tự do, phóng khoáng và yêu thích sự phiêu lưu cùng những nốt hương của hoa cỏ và trái cây tạo cảm giác người phụ nữ mềm mại, quyến rũ và đầy bí ẩn.',
+                prices: [
+                        {
+                                currency: 'VNĐ',
+                                price: '200000'
+                        },
+                        {
+                                currency: 'BTC',
+                                price: '0,0000005'
+                        }
+                ],
+                selled: '5k3'
+        },
+        {
+                id: 3,
+                name: 'Nước hoa Madame Dang EDP 12ml',
+                image: 'https://noison.vn/wp-content/uploads/2022/05/madame-dang-shadow-2048x2048-1.png',
+                description: 'Nước hoa nữ cao cấp Elyza - Hương Thị được chiết xuất từ các nguyên liệu ngoại nhập từ Châu Âu hướng đến những cô gái yêu thích sự tự do, phóng khoáng và yêu thích sự phiêu lưu cùng những nốt hương của hoa cỏ và trái cây tạo cảm giác người phụ nữ mềm mại, quyến rũ và đầy bí ẩn.',
+                prices: [
+                        {
+                                currency: 'VNĐ',
+                                price: '200000'
+                        },
+                        {
+                                currency: 'BTC',
+                                price: '0,0000005'
+                        }
+                ],
+                selled: '5k3'
+        },
+        {
+                id: 3,
+                name: 'Nước hoa Madame Dang EDP 12ml',
+                image: 'https://noison.vn/wp-content/uploads/2022/05/madame-dang-shadow-2048x2048-1.png',
+                description: 'Nước hoa nữ cao cấp Elyza - Hương Thị được chiết xuất từ các nguyên liệu ngoại nhập từ Châu Âu hướng đến những cô gái yêu thích sự tự do, phóng khoáng và yêu thích sự phiêu lưu cùng những nốt hương của hoa cỏ và trái cây tạo cảm giác người phụ nữ mềm mại, quyến rũ và đầy bí ẩn.',
+                prices: [
+                        {
+                                currency: 'VNĐ',
+                                price: '200000'
+                        },
+                        {
+                                currency: 'BTC',
+                                price: '0,0000005'
+                        }
+                ],
+                selled: '5k3'
         }
 ]

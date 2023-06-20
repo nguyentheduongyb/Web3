@@ -22,11 +22,10 @@ const getEthereumContract = async () => {
         // For this, you need the account signer...
         const signer = provider.getSigner()
         const contractAddress = new ethers.Contract(contractAddress, contractABI, signer)
-        console.log(provider, signer.contractAddress);
 }
 export const TransactionProvider = ({ children }) => {
 
-        const [currentAccount, setCurrentAccount,] = useState([]);
+        const [currentWallet, setCurrentWallet,] = useState([]);
         const checkWalletIsConnected = async () => {
                 if (!ethereum) return alert("Please install Metamask")
                 const accounts = await ethereum.request({ method: 'eth_accounts' })
@@ -39,13 +38,13 @@ export const TransactionProvider = ({ children }) => {
                 try {
                         if (!ethereum) return alert("Please install Metamask")
                         const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-                        setCurrentAccount(accounts[0])
+                        setCurrentWallet(accounts[0])
                 } catch (error) {
                         throw new Error('No Ethereum object.')
                 }
         }
         return (
-                <TransactionContext.Provider value={{ connectedWallet, currentAccount, setCurrentAccount }}>
+                <TransactionContext.Provider value={{ connectedWallet, currentWallet, setCurrentWallet }}>
                         {children}
                 </TransactionContext.Provider>
         )

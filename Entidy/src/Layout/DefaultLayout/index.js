@@ -3,7 +3,7 @@ import Footer from "~/Layout/Components/Footer";
 
 function DefaultLayout({ children }) {
     return (
-        <div className="gradient-bg h-full dark">
+        <div className="gradient-bg h-full">
             <Header></Header>
             <div style={{ paddingTop: "68px" }}>
                 {children}

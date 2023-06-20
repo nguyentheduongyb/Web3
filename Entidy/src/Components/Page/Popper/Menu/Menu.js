@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import Tippy from '@tippyjs/react/headless';
 
-import { Wrapper as PopperWrapper } from '~/components/Popper';
+import { Wrapper as PopperWrapper } from '~/Components/Page/Popper';
 import MenuItem from './MenuItem';
 import Header from './Header';
 import { useState } from 'react';
-
-
 const defaultFn = () => { };
 
 function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
@@ -38,10 +36,10 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
     };
 
     const renderResult = (attrs) => (
-        <div className="" tabIndex="-1" {...attrs}>
-            <PopperWrapper className="">
+        <div className="w-[220px] min-h-[100px] bg-white text-black rounded-[8px] shadow-lg" tabIndex="-1" {...attrs}>
+            <PopperWrapper className="py-2">
                 {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
-                <div className="">{renderItems()}</div>
+                <div className="w-full flex flex-col">{renderItems()}</div>
             </PopperWrapper>
         </div>
     );

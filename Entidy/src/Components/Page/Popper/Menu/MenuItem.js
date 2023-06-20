@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-
-
+import Button from '~/Components/Page/Button';
 function MenuItem({ data, onClick }) {
-
+    const classes = `w-full justify-start font-bold-[600] ${data.separate ? 'border-t' : ''}`
     return (
-        <button>Hello</button>
+        <Button className={classes} leftIcon={data.icon} to={data.to} onClick={onClick}>
+            {data.title}
+        </Button>
     );
 }
 

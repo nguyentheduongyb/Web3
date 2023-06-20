@@ -12,18 +12,18 @@ const ProductItem = ({ item, index }) => {
                 setImageUrl(item.image)
         })
         return (
-                <div className="p-2 rounded-[14px] shadow-[0_0px_10px_0_rgba(255,255,255)] eth-card text-black" key={index}>
+                <div className="p-2 rounded shadow-[0_0px_4px_0_rgba(255,255,255)] eth-card text-black" key={index}>
                         <Link>
                                 <div className={`w-full pt-[100%] bg-no-repeat bg-center bg-cover rounded-[12px]`} style={{ backgroundImage: `url('${imageUrl ? imageUrl : ''}')` }}></div>
                                 <h6 className="font-bold leading-none my-3 text-sm">{item.name}</h6>
                                 <p className="text-xs line-clamp-3">{item.description}</p>
-                                <div className="flex justify-between items-center mt-3">
+                                <div className="flex justify-between items-center mt-3 overflow-hidden">
                                         {item.prices.map((price, index) => {
                                                 return (
                                                         <Fragment key={index}>
                                                                 {price.currency == "VNĐ"
-                                                                        ? <p className="flex items-end leading-none"><span className="text-[10px] mr-[2px] text-[red]">vnđ</span><span className="truncate">{price.price}</span></p>
-                                                                        : <Fragment><span>/</span><p className="flex items-center"><span><SiBitcoin className='mr-[2px] text-[green]' /></span><span title={price.price} className="truncate">{price.price}</span></p></Fragment>}
+                                                                        ? <p className="flex items-end leading-none overflow-hidden"><span className="text-[10px] mr-[2px] text-[red]">vnđ</span><span className="truncate">{price.price}</span></p>
+                                                                        : <Fragment><span>/</span><p className="flex items-center overflow-hidden"><span><SiBitcoin className='mr-[2px] text-[green]' /></span><span title={price.price} className="truncate">{price.price}</span></p></Fragment>}
 
                                                         </Fragment>
                                                 )

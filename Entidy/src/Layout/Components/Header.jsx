@@ -1,18 +1,21 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
+import { useAuthUser } from 'react-auth-kit'
 
+import { LoginContext } from "~/Context/LoginContext";
 import { TransactionContext } from "~/Context/TransactionContext";
-// import Menu from "~/Components/Page/Popper/Menu/Menu";
-import { FaUserCircle } from "react-icons/fa"
+import Menu from "~/Components/Page/Popper/Menu/Menu";
+import { FaUser, FaSignOutAlt, FaQuestionCircle } from "react-icons/fa"
+import { AiOutlineGlobal } from "react-icons/ai"
+import { IoMdWallet, IoMdMore, IoIosSettings } from "react-icons/io"
 import Search from "~/Components/Page/Search";
 import images from "@assets/images";
+import Image from "~/Components/Page/Image/Image";
 
 const MENU_ITEMS = [
         {
-                icon: '',
-                title: 'English',
+                icon: <AiOutlineGlobal />,
+                title: 'Tiếng Việt',
                 children: {
                         title: 'Language',
                         data: [
@@ -28,21 +31,20 @@ const MENU_ITEMS = [
                                 },
                         ],
                 },
+
         },
         {
-                icon: '',
-                title: 'Feedback and help',
+                icon: <FaQuestionCircle />,
+                title: 'Đóng góp và hỗ trợ',
                 to: '/feedback',
         },
-        {
-                icon: '',
-                title: 'Keyboard shortcuts',
-        },
+
 ];
 
 const Header = () => {
-        const { currentAccount, setCurrentAccount } = useContext(TransactionContext)
-
+        const { currentAccount, handleLogout } = useContext(LoginContext)
+        const auth = useAuthUser()
+        const userAuth = auth()
         // Handle logic
         const handleMenuChange = (menuItem) => {
                 switch (menuItem.type) {
@@ -52,26 +54,29 @@ const Header = () => {
                         default:
                 }
         };
+        const handle = () => {
+                alert()
+        }
         const userMenu = [
                 {
-                        icon: '',
-                        title: 'View profile',
-                        to: '/@ntd7302',
+                        icon: <FaUser />,
+                        title: 'Xem Profile',
+                        to: '/account/profile',
                 },
                 {
-                        icon: '',
-                        title: 'Get coins',
-                        to: '/coin',
+                        icon: <IoMdWallet />,
+                        title: 'Ví',
+                        to: '/account/wallet',
                 },
                 {
-                        icon: '',
-                        title: 'Settings',
+                        icon: <IoIosSettings />,
+                        title: 'Cài đặt',
                         to: '/settings',
                 },
                 ...MENU_ITEMS,
                 {
-                        icon: '',
-                        title: 'Log out',
+                        icon: <FaSignOutAlt />,
+                        title: 'Đăng xuất',
                         to: '/logout',
                         separate: true,
                 },
@@ -103,22 +108,29 @@ const Header = () => {
                                         <div className="h-[38px] w-[38px] rounded-[8px] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px]">
                                                 <button className="h-full w-full rounded-[8px] bg-[white] text-black font-bold">VI</button>
                                         </div>
+                                        {!userAuth
+                                                ? <Link Link to="/login" className="rounded flex items-center justify-center px-5 font-bold border h-[38px]">Log In</Link>
+                                                : ''
+                                        }
 
-                                        {/* <Menu items={currentAccount ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
-                                                {currentAccount ? (
-                                                        <img
-                                                                className="w-[28px] h-[28px]"
-                                                                src="https://scontent.fhan4-2.fna.fbcdn.net/v/t39.30808-6/344582047_201520219339947_6790388683204594669_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Wy9o0-F9J78AX9fhMtd&_nc_ht=scontent.fhan4-2.fna&oh=00_AfAFeKz--gRo2j_zNsNgMpXE-F2eeDVPaMAdd0a6fGKuzA&oe=647C1BD5"
+                                        <Menu items={userAuth ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                                                {userAuth ? (
+                                                        <Image
+                                                                className="w-[32px] h-[32px] rounded-full cursor-pointer"
+                                                                src={images.entidy}
                                                                 alt="Nguyen The Duong"
                                                         />
                                                 ) : (
-                                                        <button><FaUserCircle className="w-[28px] h-[28px]" /></button>
+                                                        <button>
+                                                                <IoMdMore fontSize={38} />
+                                                        </button>
                                                 )}
-                                        </Menu> */}
-                                        {currentAccount
+                                        </Menu>
+
+                                        {/* {currentAccount
                                                 ? <button onClick={() => { setCurrentAccount('') }} > <FaUserCircle className="w-[28px] h-[28px]" /></button>
                                                 : <button className="rounded px-5 font-bold border h-[38px]">Log In</button>
-                                        }
+                                        } */}
                                 </div>
                         </div>
                 </div>
