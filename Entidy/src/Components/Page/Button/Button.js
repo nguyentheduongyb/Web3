@@ -41,7 +41,6 @@ function Button({
         Comp = 'a';
     }
 
-
     const classes = `flex items-center min-w-[100px] hover:bg-black hover:bg-opacity-[0.05] py-[6px] px-4 ${className}`
     return (
         <Comp className={classes} {...props}>

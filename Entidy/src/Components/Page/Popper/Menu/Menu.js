@@ -36,7 +36,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
     };
 
     const renderResult = (attrs) => (
-        <div className="w-[220px] min-h-[100px] bg-white text-black rounded-[8px] shadow-lg" tabIndex="-1" {...attrs}>
+        <div className="w-[220px] bg-white text-black rounded-[8px] shadow-lg" tabIndex="-1" {...attrs}>
             <PopperWrapper className="py-2">
                 {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
                 <div className="w-full flex flex-col">{renderItems()}</div>
@@ -52,7 +52,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
     return (
         <Tippy
             interactive
-            delay={[0, 700]}
+            delay={[0, 50]}
             offset={[12, 8]}
             hideOnClick={hideOnClick}
             placement="bottom-end"

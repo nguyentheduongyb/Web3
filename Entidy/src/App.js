@@ -5,7 +5,6 @@ import { publicRoutes } from "~/Routes";
 import { AuthProvider } from 'react-auth-kit'
 import { DefaultLayout } from "~/Layout";
 import { TransactionProvider } from "~/Context/TransactionContext"
-import LoginProvider from "./Context/LoginContext";
 
 function App() {
     return (
@@ -14,35 +13,33 @@ function App() {
             cookieDomain={window.location.hostname}
             cookieSecure={false}>
             <Router>
-                <LoginProvider>
-                    <TransactionProvider>
-                        <div className="dark:text-white">
-                            <Routes>
-                                {publicRoutes.map((route, index) => {
-                                    let Layout = DefaultLayout;
+                <TransactionProvider>
+                    <div className="dark:text-white">
+                        <Routes>
+                            {publicRoutes.map((route, index) => {
+                                let Layout = DefaultLayout;
 
-                                    if (route.layout) {
-                                        Layout = route.layout;
-                                    } else if (route.layout === null) {
-                                        Layout = Fragment;
-                                    }
-                                    const Page = route.component;
-                                    return (
-                                        <Route
-                                            key={index}
-                                            path={route.path}
-                                            element={
-                                                <Layout>
-                                                    <Page />
-                                                </Layout>
-                                            }
-                                        />
-                                    );
-                                })}
-                            </Routes>
-                        </div>
-                    </TransactionProvider>
-                </LoginProvider>
+                                if (route.layout) {
+                                    Layout = route.layout;
+                                } else if (route.layout === null) {
+                                    Layout = Fragment;
+                                }
+                                const Page = route.component;
+                                return (
+                                    <Route
+                                        key={index}
+                                        path={route.path}
+                                        element={
+                                            <Layout>
+                                                <Page />
+                                            </Layout>
+                                        }
+                                    />
+                                );
+                            })}
+                        </Routes>
+                    </div>
+                </TransactionProvider>
             </Router>
         </AuthProvider >
 

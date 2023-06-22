@@ -36,7 +36,7 @@ const Order = () => {
                         </ul>
                         <div className="rounded bg-[#eaeaea] p-3 text-[#bbb] flex items-center mb-5 focus:text-black">
                                 <BsSearch fontSize={22} className={`${focusInput ? 'text-[#555]' : ''}`} />
-                                <input onClick={() => { setFocusInput(true) }} className={`${focusInput ? 'text-[#555]' : ''} flex-1 focus:text-black bg-transparent ml-5 focus:outline-none font-sm`} type="text" placeholder="Bạn có thể tìm kiếm theo tên Shop, ID đơn hàng hoặc Tên Sản phẩm" />
+                                <input onClick={() => { setFocusInput(true) }} className={`${focusInput ? 'text-[#555]' : ''} flex-1 focus:text-black bg-transparent ml-5 border-none focus-input-none focus:outline-none font-sm`} type="text" placeholder="Bạn có thể tìm kiếm theo tên Shop, ID đơn hàng hoặc Tên Sản phẩm" />
                         </div>
                         <Item />
                         <Item />

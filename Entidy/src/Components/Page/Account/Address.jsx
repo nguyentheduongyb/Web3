@@ -8,7 +8,7 @@ const Address = () => {
                                         <h5 className="font-bold mb-4">Địa chỉ của tôi</h5>
                                 </div>
                                 <div>
-                                        <button className="px-4 font-bold text-white h-[32px] flex items-center rounded bg-gray-500"><span>Thêm địa chỉ mới</span><BiPlus /></button>
+                                        <button className="px-4 font-bold text-xs text-white h-[32px] flex items-center rounded bg-gray-500"><span>Thêm địa chỉ mới</span><BiPlus /></button>
                                 </div>
                         </div>
 

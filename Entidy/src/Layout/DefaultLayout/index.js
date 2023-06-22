@@ -3,9 +3,9 @@ import Footer from "~/Layout/Components/Footer";
 
 function DefaultLayout({ children }) {
     return (
-        <div className="gradient-bg h-full">
+        <div className="bg-white h-full">
             <Header></Header>
-            <div style={{ paddingTop: "68px" }}>
+            <div style={{ paddingTop: "92px" }}>
                 {children}
             </div>
             <Footer />

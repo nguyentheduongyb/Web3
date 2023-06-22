@@ -3,7 +3,6 @@ import Payment from "~/Components/Page/Account/Payment";
 import Address from "~/Components/Page/Account/Address";
 import Order from "~/Components/Page/Account/Order";
 const Content = ({ tab }) => {
-        console.log(typeof (tab), "1");
         switch (tab) {
                 case "1":
                         return <Ledger />

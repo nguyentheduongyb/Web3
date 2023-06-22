@@ -1,23 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
 *{
-  --font-family: 'ProximaNova', sans-serif;
+  --font-family: 'Poppins', sans-serif;
   --text-primary: rgb(19, 142, 173);
   --bg-primary: 
-    /* radial-gradient(at 50% 40%, rgb(252, 229, 239) 0, transparent 50%), 
-    radial-gradient(at 70% 6%, rgb(241, 245, 255) 0, transparent 30%), 
-    radial-gradient(at 100% 0%, rgb(188, 230, 250) 0, transparent 50%); */
-    /* radial-gradient(at 83% 67%, rgb(152, 231, 156) 0, transparent 58%),  */
-    /* radial-gradient(at 67% 20%, hsla(357,94%,71%,1) 0, transparent 59%),  */
-    radial-gradient(at 88% 35%, hsla(222,81%,65%,1) 0, transparent 50%), 
-    radial-gradient(at 31% 91%, hsla(9,61%,61%,1) 0, transparent 52%), 
-    radial-gradient(at 27% 71%, hsla(336,91%,65%,1) 0, transparent 49%), 
-    /* radial-gradient(at 74% 89%, hsla(30,98%,65%,1) 0, transparent 51%),  */
-    radial-gradient(at 53% 75%, hsla(174,94%,68%,1) 0, transparent 45%);
+    linear-gradient(
+        90deg,
+        rgb(148, 192, 239) 0%,
+        rgb(252, 229, 239) 100%
+    );
 }
 body {
     font-family: var(--font-family);
@@ -25,20 +20,21 @@ body {
     color: var(--text-color);
     overflow-y: overlay;
 }
-/* Scrollbar CSS */
-html *::-webkit-scrollbar {
-    border-radius: 0;
-    width: 8px;
+.bg-header{
+  background: linear-gradient(
+        90deg,
+        rgb(34, 164, 204)  0%,
+        rgb(148, 192, 239)100%
+    ); ;
 }
 
-html *::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.15);
+.text-gradient {
+  background-image: radial-gradient(at 4% 36%, rgb(14, 13, 13) 0, transparent 53%), radial-gradient(at 100% 60%, rgb(0, 0, 0) 0, transparent 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-
-html *::-webkit-scrollbar-track {
-    border-radius: 0;
-    background-color: rgba(0, 0, 0, 0);
+.focus-input-none:focus{
+  box-shadow: none !important;
 }
 
 .gradient-bg{
@@ -48,7 +44,6 @@ html *::-webkit-scrollbar-track {
   background-color:#0f0e13;
   background-image: var(--bg-primary);
 }
-
 .gradient-bg-transactions {
   background-color: #0f0e13;
   background-image: 
@@ -101,16 +96,11 @@ html *::-webkit-scrollbar-track {
     opacity: 1;
   }
 }
+
+
 .eth-card {
-  background-color:#a099ff;
-  background-image: 
-    radial-gradient(at 83% 67%, rgb(152, 231, 156) 0, transparent 58%), 
-    radial-gradient(at 67% 20%, hsla(357,94%,71%,1) 0, transparent 59%), 
-    radial-gradient(at 88% 35%, hsla(222,81%,65%,1) 0, transparent 50%), 
-    radial-gradient(at 31% 91%, hsla(9,61%,61%,1) 0, transparent 52%), 
-    radial-gradient(at 27% 71%, hsla(336,91%,65%,1) 0, transparent 49%), 
-    radial-gradient(at 74% 89%, hsla(30,98%,65%,1) 0, transparent 51%), 
-    radial-gradient(at 53% 75%, hsla(174,94%,68%,1) 0, transparent 45%);
+    background-color: #a099ff;
+    background-image: radial-gradient(at 83% 67%, rgb(152, 231, 156) 0, transparent 58%), radial-gradient(at 67% 20%, hsla(357,94%,71%,1) 0, transparent 59%), radial-gradient(at 88% 35%, hsla(222,81%,65%,1) 0, transparent 50%), radial-gradient(at 31% 91%, hsla(9,61%,61%,1) 0, transparent 52%), radial-gradient(at 27% 71%, hsla(336,91%,65%,1) 0, transparent 49%), radial-gradient(at 74% 89%, hsla(30,98%,65%,1) 0, transparent 51%), radial-gradient(at 53% 75%, hsla(174,94%,68%,1) 0, transparent 45%);
 }
 .btn-category.active:hover {
   background-position: right center; /* change the direction of the change here */
@@ -128,17 +118,6 @@ html *::-webkit-scrollbar-track {
     radial-gradient(at 74% 89%, hsla(30,98%,65%,1) 0, transparent 51%), 
     radial-gradient(at 53% 75%, hsla(174,94%,68%,1) 0, transparent 45%);
 }
-.eth-card {
-  background-color:#a099ff;
-  background-image: 
-    radial-gradient(at 83% 67%, rgb(252, 254, 252) 0, transparent 58%), 
-    radial-gradient(at 67% 20%, rgb(218, 217, 217) 0, transparent 59%), 
-    radial-gradient(at 88% 35%, hsla(222,81%,65%,1) 0, transparent 50%), 
-    radial-gradient(at 31% 91%, rgb(255, 255, 255) 0, transparent 52%), 
-    radial-gradient(at 27% 71%, rgb(242, 237, 239) 0, transparent 49%), 
-    radial-gradient(at 74% 89%, rgb(224, 222, 219) 0, transparent 51%), 
-    radial-gradient(at 53% 75%, rgb(111, 249, 235) 0, transparent 45%);
-}
 .text-gradient {
   background-color: #fff;
   background-image: radial-gradient(at 4% 36%, hsla(0,0%,100%,1) 0, transparent 53%), radial-gradient(at 100% 60%, rgb(0, 0, 0) 0, transparent 50%);
@@ -151,6 +130,22 @@ html *::-webkit-scrollbar-track {
 .container{
     width: 100%;
     margin: 0 auto;
+}
+
+/* Scrollbar CSS */
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
 @media (min-width: 570px) {
   .container {
@@ -178,7 +173,7 @@ html *::-webkit-scrollbar-track {
 }
 @media (min-width: 1400px) {
   .container {
-    width: 1380px;
+    width: 1320px;
 
   }
 }

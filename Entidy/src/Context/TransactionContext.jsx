@@ -29,12 +29,13 @@ export const TransactionProvider = ({ children }) => {
         const checkWalletIsConnected = async () => {
                 if (!ethereum) return alert("Please install Metamask")
                 const accounts = await ethereum.request({ method: 'eth_accounts' })
+                setCurrentWallet(accounts[0])
         }
         useEffect(() => {
                 checkWalletIsConnected()
         }, [])
 
-        const connectedWallet = async () => {
+        const connectWallet = async () => {
                 try {
                         if (!ethereum) return alert("Please install Metamask")
                         const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
@@ -44,7 +45,7 @@ export const TransactionProvider = ({ children }) => {
                 }
         }
         return (
-                <TransactionContext.Provider value={{ connectedWallet, currentWallet, setCurrentWallet }}>
+                <TransactionContext.Provider value={{ connectWallet, currentWallet, setCurrentWallet }}>
                         {children}
                 </TransactionContext.Provider>
         )
