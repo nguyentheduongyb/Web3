@@ -3,29 +3,22 @@
 /* eslint-disable no-unused-vars */
 import { ethers } from 'ethers';
 import { createContext, useEffect, useState } from 'react';
-import { contractABI, contractAddress } from '~/utils/constantjs';
+import { contractABI, contractAddress, addressTo } from '~/utils/constantjs';
 
 export const TransactionContext = createContext();
 
 const { ethereum } = window
 
-const getEthereumContract = async () => {
-        // A Web3Provider wraps a standard Web3 provider, which is
-        // what MetaMask injects as window.ethereum into each page
+const createEthereumContract = () => {
         const provider = new ethers.providers.Web3Provider(ethereum);
-
-        // MetaMask requires requesting permission to connect users accounts
-        // await provider.send("eth_requestAccounts", []);
-
-        // The MetaMask plugin also allows signing transactions to
-        // send ether and pay to change state within the blockchain.
-        // For this, you need the account signer...
-        const signer = provider.getSigner()
-        const contractAddress = new ethers.Contract(contractAddress, contractABI, signer)
+        const signer = provider.getSigner();
+        const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
+        return transactionsContract;
 }
 export const TransactionProvider = ({ children }) => {
-
-        const [currentWallet, setCurrentWallet,] = useState([]);
+        const [isLoading, setIsLoading] = useState(false)
+        const [amount, setAmount] = useState('')
+        const [currentWallet, setCurrentWallet,] = useState('');
         const checkWalletIsConnected = async () => {
                 if (!ethereum) return alert("Please install Metamask")
                 const accounts = await ethereum.request({ method: 'eth_accounts' })
@@ -34,7 +27,9 @@ export const TransactionProvider = ({ children }) => {
         useEffect(() => {
                 checkWalletIsConnected()
         }, [])
-
+        const handlePrice = (price) => {
+                setAmount(price)
+        }
         const connectWallet = async () => {
                 try {
                         if (!ethereum) return alert("Please install Metamask")
@@ -44,8 +39,38 @@ export const TransactionProvider = ({ children }) => {
                         throw new Error('No Ethereum object.')
                 }
         }
+
+        const sendTransaction = async () => {
+                try {
+                        if (ethereum) {
+                                const transactionsContract = createEthereumContract();
+                                const parsedAmount = ethers.utils.parseEther(amount);
+
+                                await ethereum.request({
+                                        method: "eth_sendTransaction",
+                                        params: [{
+                                                from: currentWallet,
+                                                to: addressTo,
+                                                gas: "0x5208",
+                                                value: parsedAmount._hex,
+                                        }],
+                                });
+                                const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount);
+                                setIsLoading(true)
+                                await transactionHash.wait();
+                                setIsLoading(false)
+                                window.location.href = '/order-success';
+                        }
+                        else {
+                                console.log("No ethereum object");
+                        }
+
+                } catch (error) {
+                        console.log(error);
+                }
+        }
         return (
-                <TransactionContext.Provider value={{ connectWallet, currentWallet, setCurrentWallet }}>
+                <TransactionContext.Provider value={{ connectWallet, currentWallet, setCurrentWallet, handlePrice, addressTo, sendTransaction, isLoading, setIsLoading }}>
                         {children}
                 </TransactionContext.Provider>
         )

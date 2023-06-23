@@ -18,17 +18,6 @@ const Cart = () => {
         }, [quantity])
         return (
                 <div>
-                        <div className="h-[68px] w-full bg-white">
-                                <div className="h-full flex items-center container mx-auto justify-between">
-                                        <div className="flex items-center gap-4">
-                                                <Link to="/"><img className="h-[68px]" src={images.logo} alt="" /></Link>
-                                                <span className="h-[30px] w-[1.6px] bg-black"></span>
-                                                <h4 className="text-xl">Giỏ hàng</h4>
-                                        </div>
-                                        <Search />
-                                </div>
-
-                        </div>
                         <div className="bg-[#f5f5f5] py-5">
                                 <div className="container ">
                                         <div className="bg-[#FFFEFB] rounded text-sm px-3 py-2 mb-4">Nhấn vào mục Mã giảm giá ở cuối trang để hưởng miễn phí vận chuyển bạn nhé!</div>
@@ -111,7 +100,7 @@ const Cart = () => {
                                                         <Checkbox className="mr-6" />
                                                         <button>Chọn tất cả</button>
                                                         <button>Xóa</button>
-                                                        <p>Tổng thanh toán(0)sản phẩm: 0đ/0<span class="font-bold">ETH</span></p>
+                                                        <p>Tổng thanh toán(0)sản phẩm: 0đ/0<span className="font-bold">ETH</span></p>
                                                         <div className="flex gap-8">
                                                                 <Link to="/payment">
                                                                         <Button>Mua với VNĐ</Button>

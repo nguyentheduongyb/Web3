@@ -4,6 +4,7 @@ import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/Components/Page/Popper';
 import CartItem from './CartItem';
 import { Button } from 'flowbite-react';
+import { Link } from 'react-router-dom';
 const defaultFn = () => { };
 
 function Cart({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
@@ -25,7 +26,9 @@ function Cart({ children, items = [], hideOnClick = false, onChange = defaultFn 
                         </PopperWrapper>
                         <div className="w-full flex items-center justify-between p-4">
                                 <p className="text-xs">88 thêm vào giỏ hàng.</p>
-                                <Button><span className="text-xs font-bold">Xem giỏ hàng</span></Button>
+                                <Link to="/cart">
+                                        <Button><span className="text-xs font-bold">Xem giỏ hàng</span></Button>
+                                </Link>
                         </div>
                 </div>
         );

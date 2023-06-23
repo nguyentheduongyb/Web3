@@ -9,7 +9,9 @@ const hre = require("hardhat");
 const main = async () => {
   const Transactions = await hre.ethers.getContractFactory("Transactions")
   const transactions = await Transactions.deploy()
-
+  let provider = new ethers.providers.JsonRpcProvider(
+    "HTTP://172.20.80.1:7545"
+  );
   await transactions.deployed();
 
   console.log("Transactions deployed to:", transactions.address);

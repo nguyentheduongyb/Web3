@@ -46,6 +46,7 @@ const Navbar = () => {
 
         const handleSignOut = () => {
                 signOut()
+                navigate('/')
         }
         const userMenu = [
                 {
@@ -96,7 +97,7 @@ const Navbar = () => {
                                         render={() => (
                                                 <div className="min-w-[400px] text-black bg-white rounded absolute right-0 overflow-hidden">
                                                         <h5 className="p-2 font-bold">Thông báo</h5>
-                                                        <ul className="px-2 bg-[#c4fbfc]">
+                                                        {/* <ul className="px-2 bg-[#c4fbfc]">
                                                                 <li className="flex items-center gap-3 mb-3 border-b py-2">
                                                                         <div className="w-12 h-12 bg-no-repeat bg-center bg-cover" style={{ backgroundImage: 'url("https://dogily.vn/wp-content/uploads/2022/09/ve-cho-corgi-03.png")' }}></div>
                                                                         <div className="flex-1 ">
@@ -112,7 +113,8 @@ const Navbar = () => {
                                                                         </div>
                                                                 </li>
                                                                 <li className="text-center cursor-pointer pb-3 font-bold underline">Xem tất cả</li>
-                                                        </ul>
+                                                        </ul> */}
+                                                        <p className="bg-gray-100 py-4 text-center">Hiện tại! Bạn chưa có thông báo nào</p>
                                                 </div>
                                         )}
                                 >

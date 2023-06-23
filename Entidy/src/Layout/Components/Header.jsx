@@ -59,7 +59,7 @@ const Header = () => {
                 },
         ];
         return (
-                <div className="w-full bg-cyan-500  text-white fixed top-0 z-[40] shadow-lg shadow-cyan-500/50">
+                <div className="w-full bg-header  text-white fixed top-0 z-[40] shadow-lg shadow-cyan-500/50">
                         <div className="container h-full">
                                 <Navbar />
                                 <div className="h-[68px] flex items-center container mx-auto justify-around">

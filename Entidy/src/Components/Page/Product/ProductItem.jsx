@@ -12,18 +12,17 @@ const ProductItem = ({ item, index }) => {
                 setImageUrl(item.image)
         })
         return (
-                <div className="p-2 rounded shadow-[0_0px_4px_0_rgba(255,255,255)] eth-card text-black" key={index}>
-                        <Link>
+                <div className="p-2 rounded-[8px] item-card text-black" key={index}>
+                        <Link to="/cart">
                                 <div className={`w-full pt-[100%] bg-no-repeat bg-center bg-cover rounded-[12px]`} style={{ backgroundImage: `url('${imageUrl ? imageUrl : ''}')` }}></div>
-                                <h6 className="font-bold leading-none my-3 text-sm">{item.name}</h6>
-                                <p className="text-xs line-clamp-3">{item.description}</p>
+                                <h6 className="font-bold leading-none my-3 text-sm line-clamp-2">{item.name}</h6>
                                 <div className="flex justify-between items-center mt-3 overflow-hidden">
                                         {item.prices.map((price, index) => {
                                                 return (
                                                         <Fragment key={index}>
                                                                 {price.currency == "VNĐ"
                                                                         ? <p className="flex items-end leading-none overflow-hidden"><span className="text-[10px] mr-[2px] text-[red]">vnđ</span><span className="truncate">{price.price}</span></p>
-                                                                        : <Fragment><span>/</span><p className="flex items-center overflow-hidden"><span><SiBitcoin className='mr-[2px] text-[green]' /></span><span title={price.price} className="truncate">{price.price}</span></p></Fragment>}
+                                                                        : <Fragment><br></br><p className="flex items-center overflow-hidden"><span><SiBitcoin className='mr-[2px] text-[green]' /></span><span title={price.price} className="truncate">{price.price}</span></p></Fragment>}
 
                                                         </Fragment>
                                                 )

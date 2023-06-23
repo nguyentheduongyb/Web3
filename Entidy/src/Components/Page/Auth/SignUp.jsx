@@ -1,16 +1,17 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSignIn } from 'react-auth-kit'
+import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
 import API from '~/API';
 
 
-
-import { ToggleSwitch, Button, Checkbox, Label, TextInput } from 'flowbite-react';
-
-
+import { TransactionContext } from '~/Context/TransactionContext';
 
 const SignUp = () => {
+        const { setIsLoading } = useContext(TransactionContext)
+        const [isFailure, setIsFailure] = useState('')
+
         const signIn = useSignIn()
         const navigate = useNavigate();
 
@@ -31,6 +32,8 @@ const SignUp = () => {
                                 username: formData.username,
                                 password: formData.password,
                         });
+                        setIsLoading(true)
+
                         signIn(
                                 {
                                         token: res.data.token,
@@ -40,7 +43,12 @@ const SignUp = () => {
                                 }
                         )
                         navigate("/")
-
+                        const timeoutID = setTimeout(() => {
+                                setIsLoading(false);
+                        }, 1000);
+                        return () => {
+                                clearTimeout(timeoutID);
+                        };
                 } catch (error) {
                         console.log("Error: ", error);
                 }
@@ -63,6 +71,8 @@ const SignUp = () => {
                                                 </div>
                                                 <TextInput
                                                         id="username"
+                                                        color={isFailure}
+                                                        onClick={() => { setIsFailure("") }}
                                                         placeholder="User Name"
                                                         onChange={(e) => { handleChange(e, "username") }}
                                                         required
@@ -79,6 +89,8 @@ const SignUp = () => {
                                                 </div>
                                                 <TextInput
                                                         id="email"
+                                                        color={isFailure}
+                                                        onClick={() => { setIsFailure("") }}
                                                         placeholder="Email"
                                                         onChange={(e) => { handleChange(e, "email") }}
                                                         required
@@ -95,6 +107,8 @@ const SignUp = () => {
                                                 </div>
                                                 <TextInput
                                                         id="password"
+                                                        color={isFailure}
+                                                        onClick={() => { setIsFailure("") }}
                                                         onChange={(e) => { handleChange(e, "password") }}
                                                         required
                                                         shadow
@@ -110,6 +124,8 @@ const SignUp = () => {
                                                 </div>
                                                 <TextInput
                                                         id="repeat-password"
+                                                        color={isFailure}
+                                                        onClick={() => { setIsFailure("") }}
                                                         onChange={(e) => { handleChange(e, "repeat-password") }}
                                                         required
                                                         shadow

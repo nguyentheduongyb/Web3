@@ -1,16 +1,15 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSignIn } from 'react-auth-kit'
 
 import API from '~/API';
+import { TransactionContext } from '~/Context/TransactionContext';
 
-
-
-import { ToggleSwitch, Button, Checkbox, Label, TextInput } from 'flowbite-react';
-
-
+import { ToggleSwitch, Button, TextInput } from 'flowbite-react';
 
 const SignIn = () => {
+        const { setIsLoading } = useContext(TransactionContext)
+        const [isFailure, setIsFailure] = useState('')
         const signIn = useSignIn()
         const navigate = useNavigate();
 
@@ -30,6 +29,7 @@ const SignIn = () => {
                                 email: formData.email,
                                 password: formData.password,
                         });
+                        setIsLoading(true)
                         signIn(
                                 {
                                         token: res.data.token,
@@ -39,7 +39,14 @@ const SignIn = () => {
                                 }
                         )
                         navigate("/")
+                        const timeoutID = setTimeout(() => {
+                                setIsLoading(false);
+                        }, 1000);
+                        return () => {
+                                clearTimeout(timeoutID);
+                        };
                 } catch (error) {
+                        setIsFailure("failure")
                         console.log("Error: ", error);
                 }
         }
@@ -50,22 +57,27 @@ const SignIn = () => {
                                         <div className='mb-10'>
                                                 <h1 className="font-bold text-2xl">Đăng nhập</h1>
                                                 <p className="text-[#67748E]">Nhập email và mật khẩu của bạn để đăng nhập</p>
+                                                {isFailure ? <p className="text-red-500 mt-4">Tài khoản hoặc mật khẩu không chính xác !!!</p> : ''}
                                         </div>
                                         <div className="mb-5">
                                                 <TextInput
+                                                        color={isFailure}
                                                         name="email"
                                                         onChange={(e) => { handleChange(e, "email") }}
                                                         placeholder="Email"
                                                         required
+                                                        onClick={() => { setIsFailure("") }}
                                                         type="email"
                                                 />
                                         </div>
                                         <div className="mb-5">
                                                 <TextInput
+                                                        color={isFailure}
                                                         name="password"
                                                         onChange={(e) => { handleChange(e, "password") }}
                                                         placeholder="Password"
                                                         required
+                                                        onClick={() => { setIsFailure("") }}
                                                         type="password"
                                                 />
                                         </div>
@@ -83,10 +95,10 @@ const SignIn = () => {
                         <div className="flex items-center justify-center relative">
                                 <div className="w-[715px] bg-gradient-to-l from-[#7928ca] to-[#ff0080] h-[90vh] rounded-[12px] flex items-center justify-center" >
                                         <div className='bg-no-repeat bg-cover bg-center w-full h-full absolute opacity-40' style={{ backgroundImage: 'url("https://demos.creative-tim.com/soft-ui-dashboard-pro/assets/img/shapes/pattern-lines.svg")' }}></div>
-                                        <div className="w-full flex justify-center items-center flex-col text-center">
+                                        <div className="w-full flex justify-center items-center flex-col text-center px-3">
                                                 <img className="max-w-[500px] w-full relative" src="https://demos.creative-tim.com/soft-ui-dashboard-pro/assets/img/illustrations/chat.png" alt="chat-img" />
-                                                <h4 className="mt-5 text-white font-weight-bolder">"Attention is the new currency"</h4>
-                                                <p className="text-white">The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+                                                <h4 className="mt-5 text-white font-weight-bolder">"Crypto Currency là dạng tiền mã hoá (tiền điện tử)"</h4>
+                                                <p className="text-white">Nó được tạo ra bởi các dự án phát hành trên Blockchain. Bạn có thể sử dụng tiền mã hóa để mua bán các sản phẩm như tiền thật.</p>
                                         </div>
                                 </div>
                         </div>

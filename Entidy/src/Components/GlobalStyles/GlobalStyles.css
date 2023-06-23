@@ -7,12 +7,8 @@
 *{
   --font-family: 'Poppins', sans-serif;
   --text-primary: rgb(19, 142, 173);
-  --bg-primary: 
-    linear-gradient(
-        90deg,
-        rgb(148, 192, 239) 0%,
-        rgb(252, 229, 239) 100%
-    );
+  --header-primary-bg: 
+    linear-gradient(45deg, #6f86d6, #89f7fe)
 }
 body {
     font-family: var(--font-family);
@@ -24,8 +20,8 @@ body {
   background: linear-gradient(
         90deg,
         rgb(34, 164, 204)  0%,
-        rgb(148, 192, 239)100%
-    ); ;
+        #72c9cf 100%
+    );
 }
 
 .text-gradient {
@@ -37,27 +33,12 @@ body {
   box-shadow: none !important;
 }
 
-.gradient-bg{
-  background-image: var(--bg-primary)
+.item-card{
+  background-color:#fff;
+  box-shadow: 0 0.0625rem 0.125rem 0 rgba(0,0,0,.1);
+  overflow: visible;
+  border: 1px solid transparent;
 }
-.gradient-bg-services {
-  background-color:#0f0e13;
-  background-image: var(--bg-primary);
-}
-.gradient-bg-transactions {
-  background-color: #0f0e13;
-  background-image: 
-    radial-gradient(at 0% 100%, hsla(253,16%,7%,1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(225,39%,25%,1) 0, transparent 50%);
-}
-
-.gradient-bg-footer {
-  background-color: #0f0e13;
-  background-image: 
-    radial-gradient(at 0% 100%, hsla(253,16%,7%,1) 0, transparent 53%), 
-    radial-gradient(at 50% 150%, hsla(339,49%,30%,1) 0, transparent 50%);
-}
-
 .blue-glassmorphism {
   background: rgb(39, 51, 89, 0.4);
   border-radius: 16px;
@@ -173,7 +154,7 @@ html *::-webkit-scrollbar-track {
 }
 @media (min-width: 1400px) {
   .container {
-    width: 1320px;
+    width: 1200px;
 
   }
 }

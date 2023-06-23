@@ -9,11 +9,11 @@ export const array = [
                 prices: [
                         {
                                 currency: 'VNĐ',
-                                price: '200000'
+                                price: '200.000'
                         },
                         {
                                 currency: 'BTC',
-                                price: '0,0000005'
+                                price: '0.002'
                         }
                 ],
                 selled: '5k'
@@ -28,11 +28,11 @@ export const array = [
                 prices: [
                         {
                                 currency: 'VNĐ',
-                                price: '200000'
+                                price: '200.000'
                         },
                         {
                                 currency: 'BTC',
-                                price: '0,0000005'
+                                price: '0.002'
                         }
                 ],
                 selled: '5k2'
@@ -48,11 +48,11 @@ export const array = [
                 prices: [
                         {
                                 currency: 'VNĐ',
-                                price: '200000'
+                                price: '200.000'
                         },
                         {
                                 currency: 'BTC',
-                                price: '0,0000005'
+                                price: '0.002'
                         }
                 ],
                 selled: '5k3'
@@ -65,11 +65,11 @@ export const array = [
                 prices: [
                         {
                                 currency: 'VNĐ',
-                                price: '200000'
+                                price: '200.000'
                         },
                         {
                                 currency: 'BTC',
-                                price: '0,0000005'
+                                price: '0.002'
                         }
                 ],
                 selled: '5k3'
@@ -82,11 +82,11 @@ export const array = [
                 prices: [
                         {
                                 currency: 'VNĐ',
-                                price: '200000'
+                                price: '200.000'
                         },
                         {
                                 currency: 'BTC',
-                                price: '0,0000005'
+                                price: '0.002'
                         }
                 ],
                 selled: '5k3'
@@ -99,11 +99,11 @@ export const array = [
                 prices: [
                         {
                                 currency: 'VNĐ',
-                                price: '200000'
+                                price: '200.000'
                         },
                         {
                                 currency: 'BTC',
-                                price: '0,0000005'
+                                price: '0.002'
                         }
                 ],
                 selled: '5k3'
@@ -116,11 +116,11 @@ export const array = [
                 prices: [
                         {
                                 currency: 'VNĐ',
-                                price: '200000'
+                                price: '200.000'
                         },
                         {
                                 currency: 'BTC',
-                                price: '0,0000005'
+                                price: '0.002'
                         }
                 ],
                 selled: '5k3'
@@ -133,11 +133,11 @@ export const array = [
                 prices: [
                         {
                                 currency: 'VNĐ',
-                                price: '200000'
+                                price: '200.000'
                         },
                         {
                                 currency: 'BTC',
-                                price: '0,0000005'
+                                price: '0.002'
                         }
                 ],
                 selled: '5k3'
@@ -150,11 +150,11 @@ export const array = [
                 prices: [
                         {
                                 currency: 'VNĐ',
-                                price: '200000'
+                                price: '200.000'
                         },
                         {
                                 currency: 'BTC',
-                                price: '0,0000005'
+                                price: '0.002'
                         }
                 ],
                 selled: '5k3'
@@ -167,11 +167,11 @@ export const array = [
                 prices: [
                         {
                                 currency: 'VNĐ',
-                                price: '200000'
+                                price: '200.000'
                         },
                         {
                                 currency: 'BTC',
-                                price: '0,0000005'
+                                price: '0.002'
                         }
                 ],
                 selled: '5k3'
@@ -184,11 +184,11 @@ export const array = [
                 prices: [
                         {
                                 currency: 'VNĐ',
-                                price: '200000'
+                                price: '200.000'
                         },
                         {
                                 currency: 'BTC',
-                                price: '0,0000005'
+                                price: '0.002'
                         }
                 ],
                 selled: '5k3'
