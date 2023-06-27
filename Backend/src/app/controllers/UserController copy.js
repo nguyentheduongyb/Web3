@@ -34,8 +34,8 @@ class UserController {
         }
         get(req, res, next) {
                 User.find({})
-                        .then(result => {
-                                res.json(result)
+                        .then(genre => {
+                                res.json(genre)
                         })
                         .catch(next)
         }

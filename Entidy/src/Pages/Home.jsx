@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 
 import { Carousel, Tabs } from 'flowbite-react';
 import { array } from '~/API/data';
@@ -9,6 +9,7 @@ const Home = () => {
 
     const [products, setProducts] = useState([])
     const [tab, setTab] = useState(1)
+
     const handleChangeTab = (e) => {
         setTab(e.currentTarget.getAttribute('id'))
     }
@@ -45,43 +46,6 @@ const Home = () => {
                 <button id="6" onClick={handleChangeTab} className={`h-[32px] px-5 font-bold flex rounded-xl h-[28px] items-center my-5 btn-category white-glassmorphism ${tab == 6 ? "active" : ""}`}>Trang sức</button>
                 <button id="7" onClick={handleChangeTab} className={`h-[32px] px-5 font-bold flex rounded-xl h-[28px] items-center my-5 btn-category white-glassmorphism ${tab == 7 ? "active" : ""}`}>Nước hoa</button>
             </div>
-            <Tabs.Group
-
-            >
-                <Tabs.Item
-                    active
-                    className={`h-[32px] px-5 font-bold flex rounded-xl h-[28px] items-center my-5 btn-category white-glassmorphism ${tab == 1 ? "active" : ""}`}
-                    title="Tab 1"
-                >
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Content 1
-                    </p>
-                </Tabs.Item>
-                <Tabs.Item title="Tab 2">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Content 2
-                    </p>
-                </Tabs.Item>
-                <Tabs.Item title="Tab 3">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Content 3
-                    </p>
-                </Tabs.Item>
-                <Tabs.Item title="Tab 4">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Content 4
-                    </p>
-                </Tabs.Item>
-                <Tabs.Item
-                    disabled
-                    title="Tab 5"
-                >
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Content 5
-                    </p>
-                </Tabs.Item>
-            </Tabs.Group>
-
             <div className="grid grid-cols-6 gap-6 mt-14 mb-14">
                 {products.map((item, index) => {
                     return (

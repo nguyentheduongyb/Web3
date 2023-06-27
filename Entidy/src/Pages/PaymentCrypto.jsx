@@ -1,21 +1,16 @@
-import { Fragment, useLayoutEffect, useState, useContext } from "react"
-import { Link } from "react-router-dom"
-import { Checkbox, Label, TextInput, Tooltip, Button, Modal } from "flowbite-react"
+import { useLayoutEffect, useState, useContext } from "react"
+import { Spinner, Label, TextInput, Tooltip, Button, Modal } from "flowbite-react"
 
 import { BsInfoCircle } from "react-icons/bs"
 import { SiEthereum } from "react-icons/si"
 import { CiPaperplane } from "react-icons/ci"
 import { LuCopy } from "react-icons/lu"
 
-import images from "~/assets/images"
-import Search from "~/Components/Page/Search"
 import { TransactionContext } from "~/Context/TransactionContext"
 import { shortenAddress } from "~/utils/shortenAddress"
 const PaymentCrypto = () => {
-        const { currentWallet, addressTo, handlePrice, sendTransaction, connectWallet } = useContext(TransactionContext)
+        const { currentWallet, addressTo, handlePrice, sendTransaction, connectWallet, loadingConnectWallet, setLoadingConnectWallet } = useContext(TransactionContext)
         const [isconnectWallet, setIsConnectWallet] = useState(false)
-        const [showModal, setShowModal] = useState(true)
-        const [open, setOpen] = useState(true)
         const [quantity, setQuantity] = useState(1)
         const [price, setPrice] = useState(0.002)
         const [total, setTotal] = useState(price)
@@ -32,7 +27,7 @@ const PaymentCrypto = () => {
                         sendTransaction()
                 }
                 else {
-                        setShowModal(true)
+                        setLoadingConnectWallet(true)
                         setIsConnectWallet(true)
                 }
 
@@ -194,13 +189,14 @@ const PaymentCrypto = () => {
                         </div>
                         {isconnectWallet
                                 ? (
-                                        <Modal show={showModal} size="md" popup onClose={() => setShowModal(false)}>
+                                        <Modal show={loadingConnectWallet} size="md" popup onClose={() => setLoadingConnectWallet(false)}>
                                                 <Modal.Header />
                                                 <Modal.Body>
                                                         <div className="text-center">
 
                                                                 <div className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                                                                         <h3 className="font-bold text-xl mb-3">Bạn chưa kết nối với Ví !</h3>
+                                                                        {loadingConnectWallet ? <Spinner aria-label="Default status example" /> : ''}
                                                                         <p className="text-xs">Vui lòng kết nối ví để hoàn tất thanh toán.</p>
                                                                 </div>
                                                                 <div className="flex justify-center gap-4">

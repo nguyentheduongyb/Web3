@@ -1,0 +1,55 @@
+const Genre = require('~/app/Models/GenreModels')
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { SECRET } = require('~/config')
+const { multipleMongooseToObject, mongooseToObject } = require('~/util/mongoose')
+const { json, response } = require('express')
+
+class GenreController {
+        create(req, res, next) {
+                const formData = req.body
+                console.log(formData);
+                const product = new Genre(formData)
+                product.save()
+                        .then(() => {
+                                res.sendStatus(200); // Trả về status code 200 nếu lưu thành công
+                        })
+                        .catch((error) => {
+                                res.sendStatus(500); // Trả về status code 500 nếu có lỗi xảy ra
+                        });
+        }
+        get(req, res, next) {
+                Genre.find({})
+                        .then(result => {
+                                res.json(result)
+                        })
+                        .catch(next)
+        }
+
+        update(req, res, next) {
+                if (!req.params.id) {
+                        return res.sendStatus(400)
+                }
+                Genre.updateOne({ _id: req.params.id }, req.body)
+                        .then(() => {
+                                res.sendStatus(200); // Trả về status code 200 nếu lưu thành công
+                        })
+                        .catch((error) => {
+                                res.sendStatus(500); // Trả về status code 500 nếu có lỗi xảy ra
+                        });
+        }
+        delete(req, res, next) {
+                if (!req.params.id) {
+                        return res.sendStatus(400)
+                }
+                Genre.deleteOne({ _id: req.params.id })
+                        .then(() => {
+                                res.sendStatus(200); // Trả về status code 200 nếu lưu thành công
+                        })
+                        .catch((error) => {
+                                res.sendStatus(500); // Trả về status code 500 nếu có lỗi xảy ra
+                        });
+        }
+
+}
+module.exports = new GenreController();

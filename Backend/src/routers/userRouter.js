@@ -4,8 +4,8 @@ const router = express.Router();
 
 const UserController = require('~/app/controllers/UserController');
 
-router.post('/signup', UserController.register);
-router.post('/signin', UserController.login);
+router.post('/signup', UserController.signup);
+router.post('/signin', UserController.signin);
 router.put('/:id', auth, UserController.update);
 router.delete('/:id', auth, UserController.delete);
 router.get('/', auth, UserController.get);
