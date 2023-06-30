@@ -30,7 +30,7 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 db.connect()
-app.use('/Uploads', express.static('./Uploads'))
+app.use('/public/Uploads', express.static('./public/Uploads'))
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // Thay đổi giá trị này thành nguồn gốc của bạn
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');

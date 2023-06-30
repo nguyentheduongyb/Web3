@@ -33,7 +33,7 @@ const SignUp = () => {
                                 password: formData.password,
                         });
                         setIsLoading(true)
-
+                        localStorage.setItem("token", res.data.token)
                         signIn(
                                 {
                                         token: res.data.token,

@@ -9,11 +9,10 @@ function App() {
     return (
         <Router>
             <div className="dark:text-white">
-                <PreLoader />
+                {isLoading && <PreLoader />}
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         let Layout = DefaultLayout;
-
                         if (route.layout) {
                             Layout = route.layout;
                         } else if (route.layout === null) {

@@ -47,6 +47,7 @@ const Navbar = () => {
         const handleSignOut = () => {
                 signOut()
                 navigate('/')
+                localStorage.clear()
         }
         const userMenu = [
                 {

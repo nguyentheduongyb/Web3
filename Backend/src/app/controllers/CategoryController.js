@@ -8,9 +8,8 @@ const { json, response } = require('express')
 class CategoryController {
         create(req, res, next) {
                 const formData = req.body
-                console.log(formData);
-                const product = new Category(formData)
-                product.save()
+                const category = new Category(formData)
+                category.save()
                         .then(() => {
                                 res.sendStatus(200); // Trả về status code 200 nếu lưu thành công
                         })

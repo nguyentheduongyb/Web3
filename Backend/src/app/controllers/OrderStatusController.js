@@ -1,16 +1,10 @@
-const Genre = require('~/app/Models/GenreModels')
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { SECRET } = require('~/config')
-const { multipleMongooseToObject, mongooseToObject } = require('~/util/mongoose')
-const { json, response } = require('express')
+const OrderStatus = require('~/app/Models/OrderStatusModels')
 
-class GenreController {
+class OrderStatusController {
         create(req, res, next) {
                 const formData = req.body
-                console.log(formData);
-                const product = new Genre(formData)
-                product.save()
+                const orderStatus = new OrderStatus(formData)
+                orderStatus.save()
                         .then(() => {
                                 res.sendStatus(200); // Trả về status code 200 nếu lưu thành công
                         })
@@ -19,7 +13,7 @@ class GenreController {
                         });
         }
         get(req, res, next) {
-                Genre.find({})
+                OrderStatus.find({})
                         .then(result => {
                                 res.json(result)
                         })
@@ -30,7 +24,7 @@ class GenreController {
                 if (!req.params.id) {
                         return res.sendStatus(400)
                 }
-                Genre.updateOne({ _id: req.params.id }, req.body)
+                OrderStatus.updateOne({ _id: req.params.id }, req.body)
                         .then(() => {
                                 res.sendStatus(200); // Trả về status code 200 nếu lưu thành công
                         })
@@ -42,7 +36,7 @@ class GenreController {
                 if (!req.params.id) {
                         return res.sendStatus(400)
                 }
-                Genre.deleteOne({ _id: req.params.id })
+                OrderStatus.deleteOne({ _id: req.params.id })
                         .then(() => {
                                 res.sendStatus(200); // Trả về status code 200 nếu lưu thành công
                         })
@@ -52,4 +46,4 @@ class GenreController {
         }
 
 }
-module.exports = new GenreController();
+module.exports = new OrderStatusController();

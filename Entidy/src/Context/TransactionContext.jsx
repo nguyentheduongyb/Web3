@@ -35,8 +35,9 @@ export const TransactionProvider = ({ children }) => {
                 try {
                         if (!ethereum) return alert("Please install Metamask")
                         const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-                        setLoadingConnectWallet(true)
                         setCurrentWallet(accounts[0])
+                        setLoadingConnectWallet(false)
+
                 } catch (error) {
                         throw new Error('No Ethereum object.')
                 }

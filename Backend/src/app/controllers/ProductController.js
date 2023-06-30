@@ -8,16 +8,9 @@ const multer = require('multer')
 const path = require('path')
 class ProductController {
         create(req, res, next) {
-                const formData = {
-                        name: req.body.name,
-                        price: req.body.price,
-                        category: req.body.category,
-                        genre: req.body.genre,
-                        selled: req.body.selled,
-                        description: req.body.description
-                }
+                const formData = req.body
                 if (req.file) {
-                        formData.image = req.file.path
+                        formData.image = req.file.destination + '/' + req.file.filename
                 }
                 else {
                         formData.image = ''
@@ -32,6 +25,7 @@ class ProductController {
                         });
         }
         get(req, res, next) {
+
                 Product.find().populate('genre').populate('category')
                         .then(result => {
                                 res.json(result)
@@ -44,7 +38,6 @@ class ProductController {
                         return res.sendStatus(400)
                 }
                 const formData = req.body
-                console.log("#########################", formData);
                 Product.updateOne({ _id: req.params.id }, req.body)
                         .then(() => {
                                 res.sendStatus(200); // Trả về status code 200 nếu lưu thành công
@@ -65,6 +58,14 @@ class ProductController {
                                 res.sendStatus(500); // Trả về status code 500 nếu có lỗi xảy ra
                         });
         }
+        filter(req, res, next) {
+
+                Product.find({ category: req.params.query }).populate('genre').populate('category')
+                        .then(result => {
+                                res.json(result)
+                        })
+                        .catch(next)
+        }
         upload = multer({
                 storage: storage,
                 limits: { fileSize: '1000000' },
@@ -84,10 +85,11 @@ class ProductController {
 }
 const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-                cb(null, 'Uploads/Images/Product')
+                cb(null, 'public/Uploads/Images/Products')
+
         },
         filename: function (req, file, cb) {
-                cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+                cb(null, file.originalname + '-' + Date.now() + path.extname(file.originalname))
         }
 })
 module.exports = new ProductController();

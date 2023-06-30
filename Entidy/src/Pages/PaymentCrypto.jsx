@@ -1,6 +1,6 @@
-import { useLayoutEffect, useState, useContext } from "react"
+import { useLayoutEffect, useState, useContext, useEffect } from "react"
 import { Spinner, Label, TextInput, Tooltip, Button, Modal } from "flowbite-react"
-
+import { useParams } from "react-router-dom"
 import { BsInfoCircle } from "react-icons/bs"
 import { SiEthereum } from "react-icons/si"
 import { CiPaperplane } from "react-icons/ci"
@@ -8,12 +8,15 @@ import { LuCopy } from "react-icons/lu"
 
 import { TransactionContext } from "~/Context/TransactionContext"
 import { shortenAddress } from "~/utils/shortenAddress"
+import entidyAPI from "~/API"
 const PaymentCrypto = () => {
+        const { id } = useParams()
         const { currentWallet, addressTo, handlePrice, sendTransaction, connectWallet, loadingConnectWallet, setLoadingConnectWallet } = useContext(TransactionContext)
         const [isconnectWallet, setIsConnectWallet] = useState(false)
         const [quantity, setQuantity] = useState(1)
         const [price, setPrice] = useState(0.002)
         const [total, setTotal] = useState(price)
+        const [results, setResults] = useState({})
         useLayoutEffect(() => {
                 if (quantity <= 1) {
                         setQuantity(1)
@@ -30,8 +33,17 @@ const PaymentCrypto = () => {
                         setLoadingConnectWallet(true)
                         setIsConnectWallet(true)
                 }
-
         }
+        useEffect(() => {
+                entidyAPI.get(`/user/order/${id}`)
+                        .then((res) => {
+                                console.log(res);
+                                setResults(res.data[0])
+                        })
+                        .catch((err) => {
+                                console.log(err);
+                        })
+        }, [])
         return (
                 <div>
                         <div className="bg-[#f5f5f5] py-5">
@@ -42,66 +54,68 @@ const PaymentCrypto = () => {
                                                 <div className="flex gap-5 items-center"><span>Nguyễn Thế Dương (+8485444759)</span><div className="flex items-center">Số nhà 120 Ngách 250/39 Kim Giang, Phường Đại Kim, Quận Hoàng Mai, Hà Nội <button className="ml-2 text-xs border px-1 py-1 rounded">Mặc định</button></div><button>Thay đổi</button></div>
                                         </div>
                                         {/* 1 Sản phẩm */}
-                                        <div className="px-8 py-8 pb-0 mb-4 bg-white rounded">
-                                                <div className="">
-                                                        <div className="flex items-center mb-4">
-                                                                <p className="flex-1">Sản phẩm</p>
-                                                                <p className="w-40 text-center text-center">Đơn giá</p>
-                                                                <p className="w-40 text-center">Số lượng</p>
-                                                                <p className="w-40 text-center">Thành tiền</p>
-                                                        </div>
-                                                        <div className="flex gap-4 mb-4">
-                                                                <p>OCEAN.NTD</p>
-                                                                <span>|</span>
-                                                                <button>Chat ngay</button>
-                                                        </div>
-                                                        <div className="flex items-center mb-4 items-center">
-                                                                <div className="bg-no-repeat bg-center bg-cover w-12 h-12 mr-4" style={{ backgroundImage: 'url("https://down-vn.img.susercontent.com/file/d05d4968ccf1688925ceb4a75941f496_tn")' }}></div>
-                                                                <div className="flex-1 flex items-center">
-                                                                        <p className="truncate text-sm">Áo thun tay lỡ unisex Local brand OCEAN - Áo phông Ullza áo phông</p>
-                                                                        <p className="text-[#ccc] text-xs">Loại: ĐEN, M từ (38 đến 65kg)</p>
+                                        {results.products && results.products.map((product) => (
+                                                <div className="px-8 py-8 pb-0 mb-4 bg-white rounded">
+                                                        <div className="">
+                                                                <div className="flex items-center mb-4">
+                                                                        <p className="flex-1">Sản phẩm</p>
+                                                                        <p className="w-40 text-center text-center">Đơn giá</p>
+                                                                        <p className="w-40 text-center">Số lượng</p>
+                                                                        <p className="w-40 text-center">Thành tiền</p>
                                                                 </div>
-                                                                <p className="w-40 text-center"><span>{price} <span className="font-bold">ETH</span></span></p>
-                                                                <p className="w-40 text-center">1</p>
-                                                                <p className="w-40 text-center"><span>0.01074865 <span className="font-bold">ETH</span></span></p>
-                                                        </div>
-                                                        <div className="flex items-center mb-4 items-center">
-                                                                <div className="bg-no-repeat bg-center bg-cover w-12 h-12 mr-4" style={{ backgroundImage: 'url("https://down-vn.img.susercontent.com/file/d05d4968ccf1688925ceb4a75941f496_tn")' }}></div>
-                                                                <div className="flex-1 flex items-center">
-                                                                        <p className="truncate text-sm">(Tặng Ngẫu Nhiên) Sticker decal chống thấm nước ca</p>
-                                                                        <p className="text-[#ccc] text-xs"></p>
+                                                                <div className="flex gap-4 mb-4">
+                                                                        <p>OCEAN.NTD</p>
+                                                                        <span>|</span>
+                                                                        <button>Chat ngay</button>
                                                                 </div>
-                                                                <p className="w-40 text-center"></p>
-                                                                <p className="w-40 text-center">1</p>
-                                                                <p className="w-40 text-center"></p>
+                                                                <div className="flex items-center mb-4 items-center">
+                                                                        <div className="bg-no-repeat bg-center bg-cover w-12 h-12 mr-4" style={{ backgroundImage: 'url("https://down-vn.img.susercontent.com/file/d05d4968ccf1688925ceb4a75941f496_tn")' }}></div>
+                                                                        <div className="flex-1 flex items-center">
+                                                                                <p className="truncate text-sm">{product.product.name}</p>
+                                                                                <p className="text-[#ccc] text-xs ml-3">{product.product.classify[0]}</p>
+                                                                        </div>
+                                                                        <p className="w-40 text-center"><span>{[product.product.price]} <span className="font-bold">ETH</span></span></p>
+                                                                        <p className="w-40 text-center">{product.quantity}</p>
+                                                                        <p className="w-40 text-center"><span>0.01074865 <span className="font-bold">ETH</span></span></p>
+                                                                </div>
+                                                                {/* <div className="flex items-center mb-4 items-center">
+                                                                        <div className="bg-no-repeat bg-center bg-cover w-12 h-12 mr-4" style={{ backgroundImage: 'url("https://down-vn.img.susercontent.com/file/d05d4968ccf1688925ceb4a75941f496_tn")' }}></div>
+                                                                        <div className="flex-1 flex items-center">
+                                                                                <p className="truncate text-sm">(Tặng Ngẫu Nhiên) Sticker decal chống thấm nước ca</p>
+                                                                                <p className="text-[#ccc] text-xs"></p>
+                                                                        </div>
+                                                                        <p className="w-40 text-center"></p>
+                                                                        <p className="w-40 text-center">1</p>
+                                                                        <p className="w-40 text-center"></p>
+                                                                </div> */}
+                                                        </div>
+                                                        <div className="border-y flex justify-end gap-60 py-4 text-sm">
+                                                                <button>Voucher của Shop</button>
+                                                                <button>Chọn Voucher</button>
+                                                        </div>
+                                                        <div className="border-b flex py-3">
+                                                                <div className="flex items-center w-4/12 gap-4 pr-8 border-r">
+                                                                        <Label>Lời nhắn:</Label>
+                                                                        <TextInput className="flex-1" placeholder="Lưu ý cho người bán"></TextInput>
+                                                                </div>
+                                                                <div className="flex justify-between flex-1 pl-8 text-sm">
+                                                                        <p>Đơn vị vận chuyển</p>
+                                                                        <div>
+                                                                                <p>Nhanh</p>
+                                                                                <p className="text-xs">Nhận hàng vào 26/06 - 28/06 </p>
+                                                                        </div>
+                                                                        <p className="cursor-pointer">THAY ĐỔI</p>
+                                                                        <p><span>0.0000165 <span className="font-bold">ETH</span></span></p>
+                                                                </div>
                                                         </div>
                                                 </div>
-                                                <div className="border-y flex justify-end gap-60 py-4 text-sm">
-                                                        <button>Voucher của Shop</button>
-                                                        <button>Chọn Voucher</button>
-                                                </div>
-                                                <div className="border-b flex py-3">
-                                                        <div className="flex items-center w-4/12 gap-4 pr-8 border-r">
-                                                                <Label>Lời nhắn:</Label>
-                                                                <TextInput className="flex-1" placeholder="Lưu ý cho người bán"></TextInput>
-                                                        </div>
-                                                        <div className="flex justify-between flex-1 pl-8 text-sm">
-                                                                <p>Đơn vị vận chuyển</p>
-                                                                <div>
-                                                                        <p>Nhanh</p>
-                                                                        <p className="text-xs">Nhận hàng vào 26/06 - 28/06 </p>
-                                                                </div>
-                                                                <p className="cursor-pointer">THAY ĐỔI</p>
-                                                                <p><span>0.0000165 <span className="font-bold">ETH</span></span></p>
-                                                        </div>
-                                                </div>
-                                                <p className="py-3 text-end">Tổng số tiền (3 sản phẩm): <span>{price} <span className="font-bold">ETH</span></span></p>
-                                        </div>
+                                        ))}
+
 
                                         {/* Voucher */}
-                                        <div className="flex justify-between bg-white px-8 py-4 rounded mb-4 text-sm    ">
-                                                <p>Entidy voucher</p>
-                                                <button>Chọn voucher</button>
+                                        <div className="flexflex-end bg-white px-8 py-4 rounded mb-4 text-sm    ">
+                                                <p className="py-3 text-end">Tổng số tiền ( sản phẩm): <span>{price} <span className="font-bold">ETH</span></span></p>
+
                                         </div>
 
                                         {/* Phương thức thanh toán */}

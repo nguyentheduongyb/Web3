@@ -10,11 +10,16 @@ const Product = new Schema({
         category: [{
                 type: mongoose.Schema.Types.ObjectId, ref: 'Category'
         }],
-        genre: { type: mongoose.Schema.Types.ObjectId, ref: 'Genre' },
+        gender: { type: mongoose.Schema.Types.ObjectId, ref: 'Gender' },
         image: {
                 type: String
         },
+        promotion: { type: String },
+        classify: [{ type: String }],
+        quantity: { type: Number },
         selled: { type: Number },
+        vote: { type: Number },
+        rate: { type: Number },
         description: { type: String },
         slug: { type: String, slug: "name" }
 }, {

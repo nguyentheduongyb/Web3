@@ -9,10 +9,8 @@ const auth = async (req, res, next) => {
                         const token = authHeaders.split(' ')[1];
 
                         const decoded = jwt.verify(token, SECRET);
-
                         req.userId = decoded.id;
                         next();
-
                 } else {
                         res.status(401).json({ message: 'Unauthorized User' });
                 }
@@ -20,6 +18,5 @@ const auth = async (req, res, next) => {
         catch (error) {
                 res.status(401).json({ message: 'Unauthorized User' });
         }
-
 }
 module.exports = auth;

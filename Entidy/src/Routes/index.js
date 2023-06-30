@@ -13,9 +13,9 @@ const publicRoutes = [
     { path: "/signin", component: SignIn, layout: null },
     { path: "/signup", component: SignUp, layout: null },
     { path: "/cart", component: Cart, layout: OnlyNavbar, title: 'Giỏ hàng' },
-    { path: "/payment/crypto", component: PaymentCrypto, layout: OnlyNavbar, title: 'Thanh toán với Crypto Currency' },
+    { path: "/payment/crypto/:id", component: PaymentCrypto, layout: OnlyNavbar, title: 'Thanh toán với Crypto Currency' },
     { path: "/payment", component: Payment, layout: OnlyNavbar, title: 'Thanh toán' },
-    { path: "/order-success", component: Payment, layout: OnlyNavbar, title: 'Theo dõi đơn hàng' },
+    { path: "/order", component: Payment, layout: OnlyNavbar, title: 'Theo dõi đơn hàng' },
     { path: "/", component: Home },
 
 ];

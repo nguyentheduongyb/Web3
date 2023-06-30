@@ -8,7 +8,7 @@ const { json } = require('express')
 class UserController {
         async signup(req, res, next) {
                 const { username, email, password } = req.body
-                if (!username || !password || !password) {
+                if (!username || !password || !email) {
                         return res.sendStatus(400)
                 }
                 try {
@@ -65,7 +65,6 @@ class UserController {
                         });
         }
         signin(req, res, next) {
-
                 const { email, password } = req.body
                 if (!email || !password) {
                         return res.sendStatus(400)

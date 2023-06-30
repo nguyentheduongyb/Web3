@@ -14,28 +14,6 @@ import { IoMdWallet, IoIosSettings } from "react-icons/io"
 import { CgShoppingCart } from "react-icons/cg"
 
 const Header = () => {
-        const userMenu = [
-                {
-                        icon: <FaUser />,
-                        title: 'Xem Profile',
-                        to: '/account/profile',
-                },
-                {
-                        icon: <IoMdWallet />,
-                        title: 'Ví',
-                        to: '/account/wallet',
-                },
-                {
-                        icon: <IoIosSettings />,
-                        title: 'Cài đặt',
-                        to: '/settings',
-                },
-                {
-                        icon: <FaSignOutAlt />,
-                        title: 'Đăng xuất',
-                        separate: true,
-                },
-        ];
         const userMenu1 = [
                 {
                         icon: <FaUser />,
@@ -68,7 +46,7 @@ const Header = () => {
                                                 <Link to="">Sản phẩm mới</Link>
                                                 <Link to="">Nữ</Link>
                                                 <Link to="">Nam</Link>
-                                                <Link to="">Sale</Link>
+                                                <Link to="" className="text-red-500">Sale</Link>
                                         </div>
                                         <Search />
                                         <Cart items={userMenu1}>

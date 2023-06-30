@@ -38,6 +38,7 @@ const SignIn = () => {
                                         authState: res.data.user.username,
                                 }
                         )
+                        localStorage.setItem("token", res.data.token)
                         navigate("/")
                         const timeoutID = setTimeout(() => {
                                 setIsLoading(false);

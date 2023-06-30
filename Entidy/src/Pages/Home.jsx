@@ -1,21 +1,25 @@
 import { useEffect, useState, useContext, useRef } from 'react';
 
-import { Carousel, Tabs } from 'flowbite-react';
-import { array } from '~/API/data';
+import { Carousel } from 'flowbite-react';
 import ProductItem from '~/Components/Page/Product/ProductItem';
 import { Link } from 'react-router-dom';
-
+import entidyAPI from '~/API'
 const Home = () => {
 
-    const [products, setProducts] = useState([])
+    const [arrays, setArrays] = useState([])
     const [tab, setTab] = useState(1)
 
     const handleChangeTab = (e) => {
         setTab(e.currentTarget.getAttribute('id'))
     }
     useEffect(() => {
-        setProducts(array)
-
+        entidyAPI.get('/api/product')
+            .then((res) => {
+                setArrays(res.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }, [])
     return (
         <div className="container pt-8 ">
@@ -47,7 +51,7 @@ const Home = () => {
                 <button id="7" onClick={handleChangeTab} className={`h-[32px] px-5 font-bold flex rounded-xl h-[28px] items-center my-5 btn-category white-glassmorphism ${tab == 7 ? "active" : ""}`}>Nước hoa</button>
             </div>
             <div className="grid grid-cols-6 gap-6 mt-14 mb-14">
-                {products.map((item, index) => {
+                {arrays && arrays.map((item, index) => {
                     return (
                         <ProductItem item={item} key={index} />
                     )

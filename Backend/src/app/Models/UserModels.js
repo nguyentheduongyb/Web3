@@ -8,6 +8,16 @@ const User = new Schema({
         email: { type: String, require: true, unique: true },
         genre: { type: String },
         phone: { type: Number },
+        cart: {
+                // To define that you want to store an array, you simply create an array
+                // Array of embedded documents
+                items: [
+                        {
+                                product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+                                quantity: { type: Number, required: true },
+                        },
+                ],
+        },
         isAdmin: { type: Boolean }
 }, {
         timestamps: true
