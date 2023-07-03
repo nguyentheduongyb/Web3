@@ -4,6 +4,7 @@
 import { ethers } from 'ethers';
 import { createContext, useEffect, useState } from 'react';
 import { contractABI, contractAddress, addressTo } from '~/utils/constantjs';
+import entidyAPI from "~/API"
 
 export const TransactionContext = createContext();
 
@@ -20,6 +21,9 @@ export const TransactionProvider = ({ children }) => {
         const [loadingConnectWallet, setLoadingConnectWallet] = useState(false)
         const [amount, setAmount] = useState('')
         const [currentWallet, setCurrentWallet,] = useState('');
+        const [transactions, setTransactions] = useState([]);
+        const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
+
         const checkWalletIsConnected = async () => {
                 if (!ethereum) return alert("Please install Metamask")
                 const accounts = await ethereum.request({ method: 'eth_accounts' })
@@ -43,12 +47,11 @@ export const TransactionProvider = ({ children }) => {
                 }
         }
 
-        const sendTransaction = async () => {
+        const sendTransaction = async ({ id }) => {
                 try {
                         if (ethereum) {
                                 const transactionsContract = createEthereumContract();
                                 const parsedAmount = ethers.utils.parseEther(amount);
-                                console.log(addressTo);
                                 await ethereum.request({
                                         method: "eth_sendTransaction",
                                         params: [{
@@ -60,9 +63,21 @@ export const TransactionProvider = ({ children }) => {
                                 });
                                 const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount);
                                 setIsLoading(true)
+                                console.log(transactionHash);
                                 await transactionHash.wait();
                                 setIsLoading(false)
-                                window.location.href = '/order-success';
+                                const transactionsCount = await transactionsContract.getTransactionCount();
+
+                                setTransactionCount(transactionsCount.toNumber());
+
+                                entidyAPI.put(`/user/order/${id}`)
+                                        .then(() => {
+                                                window.location.href = `/order/${id}`
+
+                                        })
+                                        .catch(err => {
+                                                console.log(err);
+                                        })
                         }
                         else {
                                 console.log("No ethereum object");
@@ -72,6 +87,25 @@ export const TransactionProvider = ({ children }) => {
                         console.log(error);
                 }
         }
+        const getAllTransactions = async () => {
+                try {
+                        if (ethereum) {
+                                const transactionsContract = createEthereumContract();
+                                const availableTransactions = await transactionsContract.getAllTransactions();
+                                const structuredTransactions = availableTransactions.map((transaction) => ({
+                                        addressTo: transaction.receiver,
+                                        addressFrom: transaction.sender,
+                                        timestamp: new Date(transaction.timestamp.toNumber() * 1000).toLocaleString(),
+                                        amount: parseInt(transaction.amount._hex) / (10 ** 18)
+                                }));
+                                setTransactions(structuredTransactions);
+                        } else {
+                                console.log("Ethereum is not present");
+                        }
+                } catch (error) {
+                        console.log(error);
+                }
+        };
         return (
                 <TransactionContext.Provider value={{ connectWallet, currentWallet, setCurrentWallet, handlePrice, addressTo, sendTransaction, isLoading, setIsLoading, setLoadingConnectWallet, loadingConnectWallet }}>
                         {children}

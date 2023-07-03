@@ -17,7 +17,6 @@ class CartController {
                                         // User.find({ "cart.items": { $elemMatch: { product: formData.product } } }, { "cart.items.$": 1 })
                                         .then((item) => {
                                                 if (item) {
-                                                        console.log(item.cart.items[0].quantity);
                                                         formData.quantity = item.cart.items[0].quantity + formData.quantity
                                                         User.findOneAndUpdate({ _id: req.userId, "cart.items.product": formData.product }, { $set: { "cart.items.$.quantity": formData.quantity } })
                                                                 .then((result) => {
@@ -70,7 +69,11 @@ class CartController {
                 if (!req.params.id) {
                         return res.sendStatus(400)
                 }
-                User.deleteOne({ _id: req.params.id })
+                User.updateOne(
+                        { _id: req.userId },
+                        { $pull: { "cart.items": { _id: req.params.id } } },
+                        { new: true }
+                )
                         .then(() => {
                                 res.sendStatus(200); // Trả về status code 200 nếu lưu thành công
                         })

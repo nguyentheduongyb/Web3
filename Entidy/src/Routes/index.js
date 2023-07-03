@@ -6,6 +6,7 @@ import SignUp from "~/Components/Page/Auth/SignUp";
 import Cart from "~/Pages/Cart";
 import Payment from "~/Pages/Payment";
 import PaymentCrypto from "~/Pages/PaymentCrypto";
+import Order from "~/Pages/Order";
 
 //Public Routes
 const publicRoutes = [
@@ -15,7 +16,7 @@ const publicRoutes = [
     { path: "/cart", component: Cart, layout: OnlyNavbar, title: 'Giỏ hàng' },
     { path: "/payment/crypto/:id", component: PaymentCrypto, layout: OnlyNavbar, title: 'Thanh toán với Crypto Currency' },
     { path: "/payment", component: Payment, layout: OnlyNavbar, title: 'Thanh toán' },
-    { path: "/order", component: Payment, layout: OnlyNavbar, title: 'Theo dõi đơn hàng' },
+    { path: "/order/:id", component: Order, layout: OnlyNavbar, title: 'Theo dõi đơn hàng' },
     { path: "/", component: Home },
 
 ];

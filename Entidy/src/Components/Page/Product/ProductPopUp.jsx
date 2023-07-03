@@ -2,16 +2,19 @@ import { useEffect, useLayoutEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Modal } from 'flowbite-react';
 
-import { TransactionContext } from '~/Context/TransactionContext'
+// import { TransactionContext } from '~/Context/TransactionContext'
 import { BiStar, BiPlus, BiMinus } from "react-icons/bi"
 import { baseURL } from "~/API/request";
 import entidyAPI from "~/API"
 const ProductDetail = ({ item, show, setShow }) => {
         const navigate = useNavigate()
-        const { connectedWallet } = useContext(TransactionContext)
+
+        // const { connectedWallet } = useContext(TransactionContext)
         const [quantity, setQuantity] = useState(1)
         const [imageUrl, setImageUrl] = useState('')
         const [extendText, setExtendText] = useState(false)
+        const [classify, setClassify] = useState('')
+        const [showWarning, setShowWarning] = useState(false)
         useEffect(() => {
 
                 setImageUrl(item.image)
@@ -22,7 +25,13 @@ const ProductDetail = ({ item, show, setShow }) => {
                 }
 
         }, [quantity])
+
         const handleAddCart = () => {
+                console.log(classify);
+                if (Array.isArray(item.classify) && !classify) {
+                        setShowWarning(true)
+                        return
+                }
                 entidyAPI.post("user/cart", {
                         productId: item._id,
                         quantity
@@ -86,8 +95,8 @@ const ProductDetail = ({ item, show, setShow }) => {
                                                 <div className="mt-3">
                                                         <h2 className="font-bold">Phân loại:</h2>
                                                         <div className="flex flex-wrap gap-5 mt-4">
-                                                                {item.classify && item.classify.map((classify, key2) => (
-                                                                        <button key={key2} className="h-[32px] flex items-center border rounded px-4 border-[#000] border-[1.6px]">{classify}</button>
+                                                                {item.classify && item.classify.map((item2, key2) => (
+                                                                        <button onClick={() => { setClassify(item2) }} key={key2} className={`h-[32px] flex items-center border rounded px-4 border border-[1.6px] ${classify == item2 ? "border-[#dc2626]" : ""}`}>{item2}</button>
 
                                                                 ))}
                                                         </div>
@@ -115,6 +124,22 @@ const ProductDetail = ({ item, show, setShow }) => {
                                         </div>
                                 </div>
                         </Modal.Body>
+                        <Modal show={showWarning} size="sm" popup onClose={() => { setShowWarning(false) }}>
+                                <Modal.Header />
+                                <Modal.Body>
+                                        <div className="text-center">
+                                                <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                                        Bạn phải chọn loại hàng
+                                                </h3>
+                                                <div className="flex justify-center gap-4">
+                                                        <Button color="failure" onClick={() => { setShowWarning(false) }}>
+                                                                Ok
+                                                        </Button>
+
+                                                </div>
+                                        </div>
+                                </Modal.Body>
+                        </Modal>
                 </Modal>
         )
 }

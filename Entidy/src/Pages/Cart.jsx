@@ -7,6 +7,7 @@ import entidyAPI from "~/API"
 import { baseURL } from "~/API/request"
 import CartItem from "~/Components/Page/Product/CartItem"
 const Cart = () => {
+        const [isLoading, setIsLoading] = useState(false)
         const navigate = useNavigate()
         const [arrays, setArrays] = useState([])
         const [quantity, setQuantity] = useState(1)
@@ -25,8 +26,10 @@ const Cart = () => {
                         .then((res) => {
                                 setArrays(res.data)
                         })
-        }, [])
-
+        }, [isLoading])
+        const handleLoadAgain = () => {
+                setIsLoading(!isLoading)
+        }
         const handleSelect = (item) => {
                 if (item.checked === true) {
                         arrOrder.push(item)
@@ -68,10 +71,8 @@ const Cart = () => {
                                         </div>
                                         <ul>
                                                 {arrays && arrays.map((item, index) => (
-                                                        <CartItem item={item} key={index} handleSelect={handleSelect} selectAll={handleSelectAll} />
+                                                        <CartItem item={item} key={index} handleSelect={handleSelect} selectAll={handleSelectAll} handleLoadAgain={handleLoadAgain} />
                                                 ))}
-
-
                                         </ul>
                                         <div className="bg-gradient-to-r from-purple-500 to-pink-500 bottom-0 mb-4">
                                                 <div className="flex px-4 py-2 w-full">

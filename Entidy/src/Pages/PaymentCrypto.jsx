@@ -27,7 +27,7 @@ const PaymentCrypto = () => {
 
         const handleOrder = (e) => {
                 if (currentWallet) {
-                        sendTransaction()
+                        sendTransaction({ id: results._id })
                 }
                 else {
                         setLoadingConnectWallet(true)
@@ -37,7 +37,6 @@ const PaymentCrypto = () => {
         useEffect(() => {
                 entidyAPI.get(`/user/order/${id}`)
                         .then((res) => {
-                                console.log(res);
                                 setResults(res.data[0])
                         })
                         .catch((err) => {

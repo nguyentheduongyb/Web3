@@ -6,9 +6,9 @@ import { BiPlus, BiMinus } from "react-icons/bi"
 
 import { MdDelete } from "react-icons/md"
 import { baseURL } from "~/API/request"
+import entidyAPI from "~/API"
 
-
-const CartItem = ({ item, handleSelect, selectAll }) => {
+const CartItem = ({ item, handleSelect, selectAll, handleLoadAgain }) => {
         // const checkedAll = handleSelectAll()
         const priceItem = item.product.price
         const [quantity, setQuantity] = useState(item.quantity)
@@ -29,6 +29,16 @@ const CartItem = ({ item, handleSelect, selectAll }) => {
                 handleSelect(item)
 
         }, [checked])
+
+        const handleDeleteCartItem = (id) => {
+                entidyAPI.delete(`/user/cart/${id}`)
+                        .then(() => {
+                                handleLoadAgain()
+                        })
+                        .catch(err => {
+                                console.log(err);
+                        })
+        }
         return (
                 <li>
                         <div className="bg-[#ffff] rounded text-sm  mb-4">
@@ -58,7 +68,7 @@ const CartItem = ({ item, handleSelect, selectAll }) => {
                                                                         </div>
                                                                 </div>
                                                                 <p className="w-52 text-center text-xs">{total}đ/0.01074865<span className="font-bold">ETH</span></p>
-                                                                <p className="w-20 flex justify-center"><button><MdDelete fontSize={24} /></button></p>
+                                                                <p className="w-20 flex justify-center"><button onClick={() => { handleDeleteCartItem(item._id) }}><MdDelete fontSize={24} /></button></p>
                                                         </div>
                                                 </div>
                                         </div>

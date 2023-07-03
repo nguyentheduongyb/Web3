@@ -8,7 +8,6 @@ class OrderController {
                         user: req.userId,
                         products: req.body.products,
                 }
-                console.log(formData.products.length);
                 if (!formData.user || formData.products.length <= 0) {
                         return res.sendStatus(400)
                 }
@@ -25,6 +24,7 @@ class OrderController {
                                         });
                         })
 
+
         }
         get(req, res, next) {
                 if (!req.params.id) return res.sendStatus(400)
@@ -36,6 +36,22 @@ class OrderController {
                                 res.json(error);
                                 res.sendStatus(500); // Trả về status code 500 nếu có lỗi xảy ra
                         });
+        }
+        update(req, res, next) {
+                const id = req.params.id;
+                let status
+                OrderStatus.find({})
+                        .then((status) => {
+                                status = status[1]._id
+                                Order.findByIdAndUpdate({ _id: id, user: req.userId }, { $set: { status: status } })
+                                        .then((order) => {
+                                                res.json(order); // Trả về status code 200 nếu lưu thành công
+                                        })
+                                        .catch((error) => {
+                                                res.json(error);
+                                                res.sendStatus(500); // Trả về status code 500 nếu có lỗi xảy ra
+                                        });
+                        })
         }
 
 }
