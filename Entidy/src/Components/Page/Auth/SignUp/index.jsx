@@ -1,63 +1,42 @@
-import { useState, useContext } from 'react';
+import { useEffect } from 'react';
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from 'react-router-dom';
-import { useSignIn } from 'react-auth-kit'
+import { useDispatch, useSelector } from 'react-redux'
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
-import API from '~/API';
+import { signUpUser } from '~/Redux/Auth/authActions';
 
-
-import { TransactionContext } from '~/Context/TransactionContext';
 
 const SignUp = () => {
-        const { setIsLoading } = useContext(TransactionContext)
-        const [isFailure, setIsFailure] = useState('')
+        const { register, handleSubmit, formState: { errors } } = useForm();
+        const { loading, userInfo, error } = useSelector(
+                (state) => state.auth
+        )
+        const dispatch = useDispatch()
 
-        const signIn = useSignIn()
-        const navigate = useNavigate();
+        const navigate = useNavigate()
 
-        const [formData, setformData] = useState({ email: "", password: "", username: "" });
-        const [check, setCheck] = useState(false)
-
-        const handleChange = (e, name) => {
-                setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
-        };
-
-        const handleSubmit = async (e) => {
-                e.preventDefault();
-                const { email, password, username } = formData
-                if (!email || !password || !username) return
-                try {
-                        const res = await API.post(`/users/signup`, {
-                                email: formData.email,
-                                username: formData.username,
-                                password: formData.password,
-                        });
-                        setIsLoading(true)
-                        localStorage.setItem("token", res.data.token)
-                        signIn(
-                                {
-                                        token: res.data.token,
-                                        expiresIn: 3600,
-                                        tokenType: "Bearer",
-                                        authState: res.data.user.email,
-                                }
-                        )
-                        navigate("/")
-                        const timeoutID = setTimeout(() => {
-                                setIsLoading(false);
-                        }, 1000);
-                        return () => {
-                                clearTimeout(timeoutID);
-                        };
-                } catch (error) {
-                        console.log("Error: ", error);
+        useEffect(() => {
+                if (userInfo) {
+                        navigate('/')
                 }
+        }, [navigate, userInfo])
+
+        const onSubmit = (data) => {
+                // check if passwords match
+                if (data.password !== data.confirmPassword) {
+                        alert('Password mismatch')
+                        return
+                }
+                // transform email string to lowercase to avoid case sensitivity issues in login
+                data.email = data.email.toLowerCase()
+                dispatch(signUpUser(data))
         }
         return (
                 <div className="text-black h-screen grid grid-cols-2">
                         <div className="flex items-center justify-center">
 
-                                <form className="flex max-w-md flex-col gap-4 w-[48%]">
+                                <form onSubmit={handleSubmit(onSubmit)} className="flex max-w-md flex-col gap-4 w-[48%]">
                                         <div className='mb-6'>
                                                 <h1 className="font-bold text-2xl">Đăng ký</h1>
                                                 <p className="text-[#67748E]">Nhập email và mật khẩu của bạn để đăng ký</p>
@@ -71,13 +50,11 @@ const SignUp = () => {
                                                 </div>
                                                 <TextInput
                                                         id="username"
-                                                        color={isFailure}
-                                                        onClick={() => { setIsFailure("") }}
                                                         placeholder="User Name"
-                                                        onChange={(e) => { handleChange(e, "username") }}
                                                         required
                                                         shadow
                                                         type="text"
+                                                        {...register("username")}
                                                 />
                                         </div>
                                         <div>
@@ -89,13 +66,12 @@ const SignUp = () => {
                                                 </div>
                                                 <TextInput
                                                         id="email"
-                                                        color={isFailure}
-                                                        onClick={() => { setIsFailure("") }}
                                                         placeholder="Email"
-                                                        onChange={(e) => { handleChange(e, "email") }}
                                                         required
                                                         shadow
                                                         type="email"
+                                                        {...register("email")}
+
                                                 />
                                         </div>
                                         <div>
@@ -107,12 +83,11 @@ const SignUp = () => {
                                                 </div>
                                                 <TextInput
                                                         id="password"
-                                                        color={isFailure}
-                                                        onClick={() => { setIsFailure("") }}
-                                                        onChange={(e) => { handleChange(e, "password") }}
                                                         required
                                                         shadow
                                                         type="password"
+                                                        {...register("password")}
+
                                                 />
                                         </div>
                                         <div>
@@ -123,13 +98,11 @@ const SignUp = () => {
                                                         />
                                                 </div>
                                                 <TextInput
-                                                        id="repeat-password"
-                                                        color={isFailure}
-                                                        onClick={() => { setIsFailure("") }}
-                                                        onChange={(e) => { handleChange(e, "repeat-password") }}
+                                                        id="confirmPassword"
                                                         required
                                                         shadow
                                                         type="password"
+                                                        {...register("confirmPassword")}
                                                 />
                                         </div>
                                         <div className="flex items-center gap-2">
@@ -144,7 +117,7 @@ const SignUp = () => {
 
                                                 </Label>
                                         </div>
-                                        <Button type="submit" onClick={handleSubmit}>
+                                        <Button type="submit" >
                                                 Đăng ký
                                         </Button>
                                         <div className="mt-5 text-[#67748e] text-sm text-center"><p>Bạn đã có tài khoản? <Link to="/signin" className="cursor-pointer text-[#CB0C9F]">Đăng nhập</Link></p></div>

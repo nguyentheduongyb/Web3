@@ -69,7 +69,7 @@ class UserController {
                 if (!email || !password) {
                         return res.sendStatus(400)
                 }
-                User.findOne({ email: email })
+                User.findOne({ email: email }).select('-cart')
                         .then((user) => {
                                 if (!user) {
                                         res.status(401).json({ message: "User not found" })
