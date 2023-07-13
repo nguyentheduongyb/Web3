@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthUser, useSignOut } from 'react-auth-kit'
 import Tippy from "@tippyjs/react/headless";
+import { useDispatch, useSelector } from 'react-redux'
 
 import { HiOutlineMail } from "react-icons/hi"
 import { BiSupport } from "react-icons/bi"
@@ -9,6 +9,7 @@ import { MdNotifications, MdLanguage } from "react-icons/md"
 import { FaUser, FaSignOutAlt, FaUserCircle } from "react-icons/fa"
 import { IoMdWallet, IoIosSettings } from "react-icons/io"
 
+import { logOut } from "~/Redux/Auth/authSlice"
 import Menu from "~/Components/Page/Popper/Menu/Menu";
 import Language from "~/Components/Page/Popper/Language";
 import Image from "~/Components/Page/Image/Image";
@@ -39,15 +40,15 @@ const MENU_ITEMS = [
 
 
 const Navbar = () => {
-        const navigate = useNavigate()
-        const auth = useAuthUser()
-        const userAuth = auth()
-        const signOut = useSignOut()
+        const { userInfo } = useSelector(
+                (state) => state.auth
+        )
+        const dispatch = useDispatch()
 
         const handleSignOut = () => {
-                signOut()
-                navigate('/')
+                dispatch(logOut())
                 localStorage.clear()
+                window.location.reload();
         }
         const userMenu = [
                 {
@@ -98,23 +99,6 @@ const Navbar = () => {
                                         render={() => (
                                                 <div className="min-w-[400px] text-black bg-white rounded absolute right-0 overflow-hidden">
                                                         <h5 className="p-2 font-bold">Thông báo</h5>
-                                                        {/* <ul className="px-2 bg-[#c4fbfc]">
-                                                                <li className="flex items-center gap-3 mb-3 border-b py-2">
-                                                                        <div className="w-12 h-12 bg-no-repeat bg-center bg-cover" style={{ backgroundImage: 'url("https://dogily.vn/wp-content/uploads/2022/09/ve-cho-corgi-03.png")' }}></div>
-                                                                        <div className="flex-1 ">
-                                                                                <h6 className="line-clamp-1 font-bold">Đăng ký liền tay nhận ngay giảm giáĐăng ký liền tay nhận ngay giảm giáĐăng ký liền tay nhận ngay giảm giá</h6>
-                                                                                <p className="text-xs line-clamp-2">Đăng ký liền tay nhận ngay giảm giáĐăng ký liền tay nhận ngay giảm giá</p>
-                                                                        </div>
-                                                                </li>
-                                                                <li className="flex items-center gap-3 mb-3 border-b py-2">
-                                                                        <div className="w-12 h-12 bg-no-repeat bg-center bg-cover" style={{ backgroundImage: 'url("https://dogily.vn/wp-content/uploads/2022/09/ve-cho-corgi-03.png")' }}></div>
-                                                                        <div className="flex-1 ">
-                                                                                <h6 className="line-clamp-1 font-bold">Đăng ký liền tay nhận ngay giảm giáĐăng ký liền tay nhận ngay giảm giáĐăng ký liền tay nhận ngay giảm giá</h6>
-                                                                                <p className="text-xs line-clamp-2">Đăng ký liền tay nhận ngay giảm giáĐăng ký liền tay nhận ngay giảm giá</p>
-                                                                        </div>
-                                                                </li>
-                                                                <li className="text-center cursor-pointer pb-3 font-bold underline">Xem tất cả</li>
-                                                        </ul> */}
                                                         <p className="bg-gray-100 py-4 text-center">Hiện tại! Bạn chưa có thông báo nào</p>
                                                 </div>
                                         )}
@@ -126,7 +110,7 @@ const Navbar = () => {
                                 <Language items={MENU_ITEMS} onChange={handleMenuChange}>
                                         <Link to="" className="flex items-center gap-1"><MdLanguage fontSize={21} />Ngôn ngữ</Link>
                                 </Language>
-                                {userAuth
+                                {userInfo
                                         ? <Menu items={userMenu} >
                                                 <div className="flex items-center gap-2">
                                                         <Image
@@ -134,7 +118,7 @@ const Navbar = () => {
                                                                 src={images.entidy}
                                                                 alt="Nguyen The Duong"
                                                         />
-                                                        <span>{userAuth}</span>
+                                                        <span>{userInfo.username}</span>
                                                 </div>
                                         </Menu>
                                         : <Link to="/signin" className="flex items-center gap-2"><FaUserCircle />Tài khoản</Link>

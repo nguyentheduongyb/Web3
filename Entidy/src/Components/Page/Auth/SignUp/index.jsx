@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
 import { signUpUser } from '~/Redux/Auth/authActions';
+import PreLoader from "~/Components/Page/PreLoader"
 
 
 const SignUp = () => {
         const { register, handleSubmit, formState: { errors } } = useForm();
-        const { loading, userInfo, error } = useSelector(
+        const { loading, userToken } = useSelector(
                 (state) => state.auth
         )
         const dispatch = useDispatch()
@@ -17,10 +18,11 @@ const SignUp = () => {
         const navigate = useNavigate()
 
         useEffect(() => {
-                if (userInfo) {
+                if (userToken) {
                         navigate('/')
+                        window.location.reload();
                 }
-        }, [navigate, userInfo])
+        }, [navigate, userToken])
 
         const onSubmit = (data) => {
                 // check if passwords match
@@ -134,6 +136,8 @@ const SignUp = () => {
                                         </div>
                                 </div>
                         </div>
+                        {loading && <PreLoader />}
+
                 </div>
         )
 

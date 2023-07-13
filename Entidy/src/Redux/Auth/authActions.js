@@ -7,12 +7,12 @@ export const signUpUser = createAsyncThunk(
         async ({ username, email, password }, { rejectWithValue }) => {
                 try {
 
-                        const res = await entidyAPI.post(
-                                `/users/signup`,
+                        const res = await entidyAPI.post(`/users/signup`,
                                 { username, email, password },
                         )
                         localStorage.setItem('userToken', res.data.token)
                         localStorage.setItem('userInfo', res.data.user)
+
                         return res.data
 
 
@@ -33,13 +33,14 @@ export const signInUser = createAsyncThunk(
         async ({ email, password }, { rejectWithValue }) => {
                 try {
 
-                        const { data } = entidyAPI.post(
+                        const res = await entidyAPI.post(
                                 `/users/signin`,
                                 { email, password },
                         )
                         // store user's token in local storage
-                        localStorage.setItem('userToken', data.userToken)
-                        return data
+                        localStorage.setItem('userToken', res.data.token)
+                        localStorage.setItem('userInfo', res.data.user)
+                        return res.data
                 } catch (error) {
                         // return custom error message from API if any
                         if (error.response && error.response.data.message) {

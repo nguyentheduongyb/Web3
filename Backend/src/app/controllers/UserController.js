@@ -18,16 +18,15 @@ class UserController {
                         }
                         const hashedPassword = await bcrypt.hash(password, 10)
                         const results = await User.create({
-                                email: email,
+                                email,
                                 password: hashedPassword,
-                                username: username
+                                username
                         })
 
                         const token = jwt.sign({ email: results.email, id: results._id }, SECRET)
                         res.status(201).json({ user: results, token: token })
                 }
                 catch (error) {
-                        console.log(error);
                         res.status(500).json({ message: "Something went wrong" })
                 }
 

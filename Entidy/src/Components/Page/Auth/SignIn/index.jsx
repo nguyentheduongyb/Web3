@@ -1,88 +1,59 @@
-import { useState, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSignIn } from 'react-auth-kit'
 import { useDispatch, useSelector } from 'react-redux'
-
-import API from '~/API';
-
-
-import { TransactionContext } from '~/Context/TransactionContext';
+import { useForm } from "react-hook-form";
 
 import { ToggleSwitch, Button, TextInput } from 'flowbite-react';
 
+import { signInUser } from '~/Redux/Auth/authActions';
+import PreLoader from "~/Components/Page/PreLoader"
+
 const SignIn = () => {
-        const { setIsLoading } = useContext(TransactionContext)
-        const [isFailure, setIsFailure] = useState('')
-        const signIn = useSignIn()
+        const { register, handleSubmit, formState: { errors } } = useForm();
+        const { loading, userToken, error } = useSelector(
+                (state) => state.auth
+        )
+        const dispatch = useDispatch()
+
         const navigate = useNavigate();
 
-        const [formData, setformData] = useState({ email: "", password: "", username: "" });
         const [check, setCheck] = useState(false)
 
-        const handleChange = (e, name) => {
-                setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
-        };
-
-        const handleSubmit = async (e) => {
-                e.preventDefault();
-                const { email, password } = formData
-                if (!email || !password) return
-                try {
-                        const res = await API.post(`/users/signin`, {
-                                email: formData.email,
-                                password: formData.password,
-                        });
-                        setIsLoading(true)
-                        signIn(
-                                {
-                                        token: res.data.token,
-                                        expiresIn: 3600,
-                                        tokenType: "Bearer",
-                                        authState: res.data.user.username,
-                                }
-                        )
-                        localStorage.setItem("token", res.data.token)
-                        navigate("/")
-                        const timeoutID = setTimeout(() => {
-                                setIsLoading(false);
-                        }, 1000);
-                        return () => {
-                                clearTimeout(timeoutID);
-                        };
-                } catch (error) {
-                        setIsFailure("failure")
-                        console.log("Error: ", error);
-                }
+        const onSubmit = (data) => {
+                // transform email string to lowercase to avoid case sensitivity issues in login
+                data.email = data.email.toLowerCase()
+                dispatch(signInUser(data))
         }
+        useEffect(() => {
+                if (userToken) {
+                        navigate('/')
+                        window.location.reload();
+                }
+        }, [navigate, userToken])
         return (
                 <div className="text-black h-screen grid grid-cols-2">
                         <div className="flex items-center justify-center">
-                                <form className="w-[48%]">
+                                <form onSubmit={handleSubmit(onSubmit)} className="w-[48%]">
                                         <div className='mb-10'>
                                                 <h1 className="font-bold text-2xl">Đăng nhập</h1>
                                                 <p className="text-[#67748E]">Nhập email và mật khẩu của bạn để đăng nhập</p>
-                                                {isFailure ? <p className="text-red-500 mt-4">Tài khoản hoặc mật khẩu không chính xác !!!</p> : ''}
+                                                {error ? <p className="text-red-500 mt-4">Tài khoản hoặc mật khẩu không chính xác !!!</p> : ''}
                                         </div>
                                         <div className="mb-5">
                                                 <TextInput
-                                                        color={isFailure}
-                                                        name="email"
-                                                        onChange={(e) => { handleChange(e, "email") }}
                                                         placeholder="Email"
                                                         required
-                                                        onClick={() => { setIsFailure("") }}
                                                         type="email"
+                                                        {...register("email")}
                                                 />
                                         </div>
                                         <div className="mb-5">
                                                 <TextInput
-                                                        color={isFailure}
                                                         name="password"
-                                                        onChange={(e) => { handleChange(e, "password") }}
                                                         placeholder="Password"
                                                         required
-                                                        onClick={() => { setIsFailure("") }}
                                                         type="password"
+                                                        {...register("password")}
                                                 />
                                         </div>
                                         <ToggleSwitch
@@ -90,7 +61,7 @@ const SignIn = () => {
                                                 className="mb-3 text-black"
                                                 onChange={() => { setCheck(!check) }}
                                         />
-                                        <Button type="submit" onClick={handleSubmit} className="h-[48px] rounded-[6px]  bg-gray-500 w-full text-white">
+                                        <Button type="submit" className="h-[48px] rounded-[6px]  bg-gray-500 w-full text-white">
                                                 Đăng nhập
                                         </Button>
                                         <div className="mt-5 text-[#67748e] text-sm text-center"><p>Bạn chưa có tài khoản? <Link to="/signup" className="cursor-pointer text-[#CB0C9F]">Đăng ký</Link></p></div>
@@ -106,6 +77,7 @@ const SignIn = () => {
                                         </div>
                                 </div>
                         </div>
+                        {loading && <PreLoader />}
                 </div>
         )
 
